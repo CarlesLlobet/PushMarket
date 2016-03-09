@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+ 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dip"
+        android:orientation="vertical" >
+
+        <!--  Name Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dip"
+            android:text="@string/name"
+            android:textColor="@android:color/white" />
+        <!--  Name TextField -->
+        <EditText
+            android:id="@+id/registerNombre"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/white" />
+
+        <!--  Address Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            android:textColor="@android:color/white" />
+        <!--  User TextField -->
+        <EditText
+            android:id="@+id/registerAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:textColor="@android:color/white" />
+         
+        <!--  User Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user"
+            android:textColor="@android:color/white" />
+        <!--  User TextField -->
+        <EditText
+            android:id="@+id/registerUserName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:textColor="@android:color/white" />
+         
+        <!--  Password Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/passwd"
+            android:textColor="@android:color/white" />
+        <!--  Password TextField -->
+        <EditText
+            android:id="@+id/registerPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="@android:color/white" />
+        <!--  Tuto TextField -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/tutos"
+            android:textColor="@android:color/white" />
+
+        <!--  Tuto Switch -->
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/registerTuto"
+            android:layout_gravity="center_horizontal"
+            android:checked="false" />
+
+        <!--  Error message -->
+        <TextView android:id="@+id/register_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#db2316"
+            android:padding="20dip"
+            android:textStyle="bold"/>
+
+        <!--  Login Button -->
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="@string/btnRegister" />
+
+
+    </LinearLayout>
+ 
+</ScrollView>
+</LinearLayout>
