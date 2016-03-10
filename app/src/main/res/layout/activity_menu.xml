@@ -33,15 +33,13 @@
             android:textColor="#e42525"
             android:textStyle="bold" />
 
-        <xyz.carlesllobet.swissknife.Domain.PlayGifView
+        <xyz.carlesllobet.pushmarket.Domain.PlayGifView
             android:id="@+id/viewGif"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
-
-
 
     </RelativeLayout>
 </LinearLayout>

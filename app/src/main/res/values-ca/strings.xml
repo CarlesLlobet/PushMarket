@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account">Compte</string>
+    <string name="action_settings">Preferències</string>
+    <string name="address">Direcció</string>
+    <string name="barallaJEDI">Fàcil</string>
+    <string name="barallaJEDIprank">Intermig</string>
+    <string name="barallaSwissKnife">Difícil</string>
+    <string name="btnAddUser">Afegir usuari</string>
+    <string name="btnChange">Canviar</string>
+    <string name="btnChangePasswd">Canviar contrasenya</string>
+    <string name="btnEnter">Entrar</string>
+    <string name="btnLogout">Tancar sessió</string>
+    <string name="btnNo">No</string>
+    <string name="btnRegister">Afegir </string>
+    <string name="btnRetry">Reintentar</string>
+    <string name="btnSi">Si</string>
+    <string name="btnStart">Començar</string>
+    <string name="closeDrawer">Tancar menú</string>
+    <string name="deleteUser">Eliminar</string>
+    <string name="deleteUserText">Segur que vols eliminar l\'usuari: </string>
+    <string name="dialog1">Nova foto de perfil</string>
+    <string name="error1">La contrasenya actual no es correcta!</string>
+    <string name="error2">Les contrasenyes no coincideixen!</string>
+    <string name="error3">Dades incorrectes. Prova amb un altre nom d\'usuari o contrasenya</string>
+    <string name="finalPartida">Final de partida</string>
+    <string name="finalPartidaText">Felicitats! Has guanyat el joc.\nVols tornar a jugar?</string>
+     <string name="helpMemory">
+        "Memory és un joc que consisteix en trobar totes les parelles de cartes."\n
+        "Es comença amb totes les cartes boca avall, es destapa una, i s'intenta adivinar on està la seva parella."
+        "Si es falla, es torna a posar boca avall l'anterior, i es continuen buscant parelles."\n
+        "Quan una parella es troba, es deixen les dues cartes boca amunt."\n\n
+        "Per a més informació, visitar:"\n
+        <a href="https://es.wikipedia.org/wiki/Memoria_(juego)"> Viquipèdia </a>.
+    </string>
+    <string name="helpRegister">
+        "Bones, si ets l'administrador procedeix amb compte, en cas contrari, abandona la pantalla de registre."\n
+        En aquesta pantalla podràs registrar usuaris, només introduïnt el seu <b>Nom</b>,<b>direcció</b>,<b>"nom d'usuari"</b> i <b>contraseña</b>.\n
+        "Abans de registrar-lo, podràs marcar si vols que l'usuari comenci amb el tutorial (actiu per defecte)."
+    </string>
+    <string name="helpCalc">
+        "Aquesta no es una calculadora normal i corrent."\n\n
+        "... D'acord, si ho és, però no nomès això:"\n
+        "Aquesta calculadora ens permetrà també trucar."\n
+        "Prova a prèmer el botó de trucada i descobreix-ho tu mateix!"
+    </string>
+    <string name="helpRanking">
+       "Aquí podem veure el ranking del Memory de tots els jugadors inscrits al dispositiu."
+    </string>
+    <string name="helpMediaPlayer">
+        "Aquest reproductor de música et permetrà:"\n\n
+
+        <u>-Forward:</u> "Porta l'audio al començament un altre cop"\n
+        <u>-Play/Pausa:</u> "Permet pausar la reproducció i reprendre-la en el punt on haviem pausat"\n
+        <u>-Stop:</u> "Atura l'audio i el porta al principi"\n
+        <u>-Loop:</u> "Posa la reproducció en mode "Repetir", pel que quan l'audio finalitza, torna a reproduir-se"\n
+    </string>
+    <string name="helpMenu">
+        "Aquesta és una aplicació per al curs de JEDI de Gener de 2016."\n\n
+
+        "A través d'ella s'intentarà demostrar els coneixements i nivell d'Android adquirits gràcies a aquest curs i l'interès de l'alumne.
+        Des del menú podràs accedir a:"\n\n
+
+        <u>-Memory:</u> "Accedeix al típic joc de memory on hauràs de demostrar la teva habilitat de memòria amb cartes girades."\n
+        "Per informació i regles del joc, veure l'ajuda d'aquest."\n\n
+
+        <u>-Ranking:</u> "Aquest apartat delmenú ens permet accedir al ranking del joc on podrèm veure els resultats de tots els usuaris
+        registrats en aquest dispositiu."\n\n
+
+        <u>-Calculadora:</u> "Aquest apartat del menú ens permetrà accedir a una calculadora convencional que a més ens permet trucar
+        a través de la SIM del nostre telèfon."\n\n
+
+        <u>-Compte:</u> Aquí podrem accedir a les <b>preferències</b> i tancar sessió.\n\n
+
+
+        Para accedir a les <b>preferències</b>, també podem prèmer la nostra fotografía de perfil de la capçalera del menú."
+    </string>
+    <string name="helpSettings">
+        "A les preferències podem veure la nostra informació personal per verificar-la."\n
+        "En cas d'error o canvi d'alguna dada, parla amb l'administrador per modificar-ho."\n\n
+
+        El botó de <b>Tancar sessió</b> et permetrà tancar la sessió per a que ningú pugui accedir al teu compte ni informació personal.
+    </string>
+    <string name="intents">Puntuació:</string>
+    <string name="lnotif">Última notificació:</string>
+    <string name="name">Nom:</string>
+    <string name="newPasswd">Nova contrasenya:</string>
+    <string name="newPasswd2">Repeteix la nova contrasenya:</string>
+    <string name="notifDiv">No pots dividir entre 0!</string>
+    <string name="notifGame1">"Has acabat amb "</string>
+    <string name="notifGame2">" intents"</string>
+    <string name="notifText">El resultat es un NaN (Not a Number)!</string>
+    <string name="novaPartida">Nova partida</string>
+    <string name="novaPartidaText">Benvingut a Memory\nEscull una baralla i mida de tauler</string>
+    <string name="oldPasswd">Contrasenya actual</string>
+    <string name="openDrawer">Open Drawer</string>
+    <string name="passwd">Contrasenya:</string>
+    <string name="progress">Processant...</string>
+    <string name="tituloAyuda">Ajuda</string>
+    <string name="tituloHome">Inici</string>
+    <string name="tituloLogin">Iniciar Sessió</string>
+    <string name="tituloPassword">Canviar contrasenya</string>
+    <string name="tituloRegister">Afegir usuari</string>
+    <string name="tituloSettings">Preferències</string>
+    <string name="user">Usuari:</string>
+    <string name="welcome">Benvingut a\nPushMarket</string>
+    <string name="btnClose">Tancar</string>
+    <string name="spa">Castellà</string>
+    <string name="cat">Català</string>
+    <string name="en">Anglès</string>
+    <string name="language">L\'idioma canviarà al canviar de pantalla</string>
+    <string name="checkBoxText">No tornar a mostrar</string>
+    <string name="notifRegister">Usuari afegit correctament!</string>
+    <string name="notifPass">Contrasenya canviada correctament!</string>
+</resources>

@@ -1,4 +1,4 @@
-package xyz.carlesllobet.pushmarket.UI.UI;
+package xyz.carlesllobet.pushmarket.UI;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -22,16 +22,12 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Switch;
 import android.widget.TextView;
-
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.Locale;
 
-import xyz.carlesllobet.swissknife.DB.UserFunctions;
-import xyz.carlesllobet.swissknife.R;
+import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.R;
 
 /**
  * Created by JEDI on 17/08/2015.
@@ -52,14 +48,11 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     private String direc;
     private Uri foto;
     private Integer puntuacion;
-    private Switch tuto;
 
     private TextView nombre;
     private TextView username;
-    private TextView punt;
     private TextView addr;
     private TextView lnotif;
-    private Switch switch1;
 
     private FrameLayout cardLoc;
 
@@ -74,11 +67,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
     Uri selectedImage;
     Uri mImageUri;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +76,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         userFunctions = new UserFunctions();
 
-        if (userFunctions.isUserAdmin(getApplicationContext())) {
-            setContentView(R.layout.activity_settings_admin);
-
-            btnRegister = (Button) findViewById(R.id.btnRegister);
-            btnRegister.setOnClickListener(this);
-        } else setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_settings);
 
         ubic = (TextView) findViewById(R.id.ubic);
         btnClose = (Button) findViewById(R.id.btnClose);
@@ -113,13 +96,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         nombre = (TextView) findViewById(R.id.nombre);
         username = (TextView) findViewById(R.id.username);
-        punt = (TextView) findViewById(R.id.punt);
         addr = (TextView) findViewById(R.id.address);
         lnotif = (TextView) findViewById(R.id.lnotif);
-        switch1 = (Switch) findViewById(R.id.switch1);
 
-        tuto = (Switch) findViewById(R.id.switch1);
-        tuto.setChecked(userFunctions.getTuto(getApplicationContext(), un));
 
         name = userFunctions.getName(getApplicationContext(), un);
         puntuacion = userFunctions.getPunt(getApplicationContext(), un);
@@ -136,7 +115,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         nombre.setText(name);
         username.setText(un);
-        punt.setText(puntuacion.toString());
         addr.setText(direc);
 
         btnChangePassword = (Button) findViewById(R.id.btnChangePassword);
@@ -145,25 +123,12 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(this);
 
-
-        tuto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                userFunctions.setTuto(getApplicationContext(), un, isChecked);
-            }
-        });
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
     public void onClick(View v) {
         if (clickable) {
             switch (v.getId()) {
-                case R.id.btnRegister:
-                    startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-                    break;
                 case R.id.btnChangePassword:
                     startActivity(new Intent(getApplicationContext(), PasswordActivity.class));
                     break;
@@ -256,25 +221,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_location:
-                Location loc = null;
-                lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                        && ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                }
-                cardLoc.setVisibility(View.VISIBLE);
-                clickable = false;
-                if (loc != null) {
-                    ubic.setText("Latitud:   " + String.valueOf(loc.getLatitude())+ "\n" +
-                                 "Longitud:  " + String.valueOf(loc.getLongitude())+ "\n" +
-                                 "Altitud:   " + String.valueOf(loc.getAltitude()));
-                } else {
-                    ubic.setText("Latitud:   " + "  desconocida" + "\n" +
-                                 "Longitud:  " + "desconocida" + "\n" +
-                                 "Altitud:   " + "  desconocida");
-                }
-                break;
+
             case R.id.action_spa:
                 Locale locale = new Locale("es");
                 Locale.setDefault(locale);
@@ -283,7 +230,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 getApplicationContext().getResources().updateConfiguration(config, null);
                 language.setIcon(R.mipmap.spain);
                 lang = "es";
-                userFunctions.setLang(getApplicationContext(),userFunctions.getUserName(getApplicationContext()),lang);
+                userFunctions.setLang(getApplicationContext(), userFunctions.getUserName(getApplicationContext()),lang);
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 finish();
                 break;
@@ -295,7 +242,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 getApplicationContext().getResources().updateConfiguration(config2, null);
                 language.setIcon(R.mipmap.catalonia);
                 lang = "ca";
-                userFunctions.setLang(getApplicationContext(),userFunctions.getUserName(getApplicationContext()),lang);
+                userFunctions.setLang(getApplicationContext(), userFunctions.getUserName(getApplicationContext()),lang);
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 finish();
                 break;
@@ -307,13 +254,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 getApplicationContext().getResources().updateConfiguration(config3, null);
                 language.setIcon(R.mipmap.uk);
                 lang = "en";
-                userFunctions.setLang(getApplicationContext(),userFunctions.getUserName(getApplicationContext()),lang);
+                userFunctions.setLang(getApplicationContext(), userFunctions.getUserName(getApplicationContext()),lang);
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 finish();
-                break;
-            case R.id.action_help:
-                Intent intent = new Intent(this, HelpSettingsActivity.class);
-                this.startActivity(intent);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

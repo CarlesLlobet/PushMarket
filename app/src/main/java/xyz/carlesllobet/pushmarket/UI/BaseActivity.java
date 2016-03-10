@@ -1,4 +1,4 @@
-package xyz.carlesllobet.pushmarket.UI.UI;
+package xyz.carlesllobet.pushmarket.UI;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -16,6 +16,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import java.util.Locale;
+
+import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.R;
 
 /**
  * Created by CarlesLlobet on 04/02/2016.
@@ -60,13 +63,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         UserFunctions userFunctions = new UserFunctions();
         foto = userFunctions.getFoto(getApplicationContext(), userFunctions.getUserName(getApplicationContext()));
-        picButton = (ImageButton) navigationView.getHeaderView(0).findViewById(R.id.picButton);
-        if (foto != null) picButton.setImageURI(foto);
-        picButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                startActivity((new Intent(getApplicationContext(), SettingsActivity.class)));
-            }
-        });
     }
 
 
@@ -78,30 +74,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.inicio:
                 intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.memory:
-                intent = new Intent(getApplicationContext(), MemoryActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.ranking:
-                intent = new Intent(getApplicationContext(), RankingHolder.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.calculator:
-                intent = new Intent(getApplicationContext(), CalculatorActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.mediaPlayer:
-                intent = new Intent(getApplicationContext(), MediaPlayerActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

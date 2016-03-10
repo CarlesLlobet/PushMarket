@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+
+import xyz.carlesllobet.pushmarket.Domain.Person;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
  
@@ -19,25 +22,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
  
     // Login table nombre
     private static final String TABLE_LOGIN = "users";
-    private static final String TABLE_TIME = "time";
  
     // Login Table Columns nombres
-    private static final String KEY_ID = "id";
     private static final String KEY_NOMBRE = "nombre";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_UID = "uid";
-    private static final String KEY_DIRECCION = "direccion";
-    private static final String KEY_TELEFONO = "telefono";
-    private static final String KEY_FECHA_CREACION = "FECHA_CREACION";
-    private static final String KEY_NIF = "nif";
-    private static final String KEY_EDAD = "edad";
-    private static final String KEY_PESO_INICIAL = "pesoInicial";
-    
-    private static final String KEY_DESPERTAR = "despertar";
-    private static final String KEY_ANTES_COMER = "antesComer";
-    private static final String KEY_DESPUES_COMER = "despuesComer";
-    private static final String KEY_SOS = "sos";
- 
+    private static final String KEY_USERNAME = "userName";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_FOTO = "foto";
+    private static final String KEY_PUNT = "puntuacion";
+    private static final String KEY_PUNT2 = "puntuacion2";
+    private static final String KEY_NOTIF= "notificacion";
+    private static final String KEY_ADDRESS= "direccion";
+    private static final String KEY_TUTORIAL= "tutorial";
+    private static final String KEY_TOAST= "toast";
+    private static final String KEY_LNOTIF= "last_notif";
+    private static final String KEY_LANG= "language";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -46,27 +45,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_UID + " TEXT,"
-                + KEY_NOMBRE + " TEXT,"
-                + KEY_EMAIL + " TEXT UNIQUE,"
-                + KEY_EDAD + " INTEGER,"
-                + KEY_DIRECCION + " TEXT,"
-                + KEY_TELEFONO + " INTEGER,"
-                + KEY_PESO_INICIAL + " INTEGER,"
-                + KEY_NIF + " TEXT,"
-                + KEY_FECHA_CREACION + " DATETIME" + ")";
+                + KEY_NOMBRE + " TEXT NOT NULL,"
+                + KEY_USERNAME + " TEXT UNIQUE PRIMARY KEY,"
+                + KEY_PASSWORD + " TEXT NOT NULL,"
+                + KEY_FOTO + " STRING,"
+                + KEY_NOTIF + " STRING,"
+                + KEY_PUNT + " INTEGER,"
+                + KEY_ADDRESS + " TEXT NOT NULL,"
+                + KEY_TUTORIAL + " STRING,"
+                + KEY_TOAST + " STRING,"
+                + KEY_LNOTIF + " STRING,"
+                + KEY_PUNT2 + " INTEGER,"
+                + KEY_LANG + " STRING"+ ")";
         db.execSQL(CREATE_LOGIN_TABLE);
-        
-        String CREATE_TIME_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_TIME + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_UID + " TEXT,"
-                + KEY_NOMBRE + " TEXT,"
-                + KEY_DESPERTAR + " TEXT,"
-                + KEY_ANTES_COMER + " TEXT,"
-                + KEY_DESPUES_COMER + " TEXT,"
-                + KEY_SOS + " TEXT"+ ")";
-        db.execSQL(CREATE_TIME_TABLE);
     }
  
     // Upgrading database
@@ -74,155 +65,514 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TIME);
  
         // Create tables again
         onCreate(db);
     }
- 
+
     /**
      * Storing user details in database
      * */
-    public void addUser(String uid, String nombre, String email, String edad, String direccion, String telefono,
-                        String pesoInicial, String nif, String fecha_creacion) {
-        
+    public boolean addUser(String nombre, String userName, String password, String direccion, String tutorial) {
     	SQLiteDatabase db = this.getWritableDatabase();
- 
-        ContentValues values = new ContentValues();
-        values.put(KEY_UID, uid); // ID unico
-        values.put(KEY_NOMBRE, nombre); // Name
-        values.put(KEY_EMAIL, email); // Email
-        values.put(KEY_EDAD, edad); //Edad
-        values.put(KEY_DIRECCION, direccion); //direccion
-        values.put(KEY_TELEFONO, telefono); //telefono
-        values.put(KEY_PESO_INICIAL, pesoInicial); // NIF/NIE
-        values.put(KEY_NIF, nif); // NIF/NIE
-        values.put(KEY_FECHA_CREACION, fecha_creacion); // Created At
 
- 
+        //Si existeix, retorna fals, i no es pot afegir
+        if (CheckExist(userName)) return false;
+
+        if ((userName.equals("")) || (password.toString().equals("")) || (direccion.toString().equals(""))) return false;
+
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NOMBRE, nombre); // Name
+        values.put(KEY_USERNAME, userName); // userName
+        values.put(KEY_PASSWORD, password); // Password
+        values.put(KEY_FOTO, ""); // Foto
+        values.put(KEY_NOTIF, "true"); // Notificacion
+        values.put(KEY_PUNT, 0); // Puntuacion
+        values.put(KEY_ADDRESS, direccion); // Address
+        values.put(KEY_TUTORIAL, tutorial); // Tutorial
+        values.put(KEY_TOAST, "true"); // Toasts
+        values.put(KEY_LNOTIF, ""); // Last notif
+        values.put(KEY_PUNT2, 0); // Puntuacion2
+        values.put(KEY_LANG, "es"); // Idioma
+
+
         // Inserting Row
         db.insert(TABLE_LOGIN, null, values);
         db.close(); // Closing database connection
+        return true;
     }
-    
-    /**
-     * Storing time details in database
-     * */
-    public void addTime(String uid, String nombre, String despertar, String antesComer, String despuesComer, String sos) {
-        
-    	SQLiteDatabase db = this.getWritableDatabase();
- 
-        ContentValues values = new ContentValues();
-        values.put(KEY_NOMBRE, nombre); // Name
-        values.put(KEY_UID, uid); // ID unico
-        values.put(KEY_DESPERTAR, despertar); // Hora entrada
-        values.put(KEY_ANTES_COMER, antesComer); // Hora sortida
-        values.put(KEY_DESPUES_COMER, despuesComer); // Hora sortida
-        values.put(KEY_SOS, sos); // Hora sortida
- 
-        // Inserting Row
-        db.insert(TABLE_TIME, null, values);
-        db.close(); // Closing database connection
-    }
-    
-    public HashMap<String, String[]> getTimeDetails(){
-        HashMap<String,String[]> time = new HashMap<String,String[]>();
-        
-        String selectQuery = "SELECT  * FROM " + TABLE_TIME;
-          
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        
-        String[] uid = new String[50];
-        String[] nombre = new String[50];
-        String[] despertar = new String[50];
-        String[] antesComer = new String[50];
-        String[] despuesComer = new String[50];
-        String[] sos = new String[50];
-        
-        int i = 0;
-        // Move to first row
-        cursor.moveToFirst();
-        while (i < cursor.getCount() && i < 50) {
-        	uid[i] = cursor.getString(1);
-        	nombre[i] = cursor.getString(2);
-        	despertar[i] = cursor.getString(3);
-        	antesComer[i] = cursor.getString(4);
-            despuesComer[i] = cursor.getString(5);
-            sos[i] = cursor.getString(6);
 
-        	cursor.moveToNext();
-        	++i;
+    public Boolean CheckExist(String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_USERNAME};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName=?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            return true;
         }
-        cursor.close();
-        db.close();
-        
-        String[] numero = {String.valueOf(i)};
-        // return user
-        time.put("uid", uid);
-        time.put("nombre", nombre);
-        time.put("despertar", despertar);
-        time.put("antesComer", antesComer);
-        time.put("despuesComer", despuesComer);
-        time.put("sos", sos);
-        time.put("numero", numero);
-        return time;
+        return false;
     }
-    
-    /**
-     * Getting user data from database
-     * */
-    public HashMap<String, String> getUserDetails(){
-        HashMap<String,String> user = new HashMap<String,String>();
-        
-        String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
-          
+
+    public boolean SignIn(String user, String passwd) {
+        if(!CheckExist("admin")) addUser("Administrador","admin","4dm1n","Calle de las Mariposas 21","true");
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_USERNAME,KEY_PASSWORD};
+        String[] where = {user,passwd};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ? AND password = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return true;
+        }
+        db.close();
+        return false;
+    }
+
+
+
+    public String getNotif (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_NOTIF};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return (c.getString(0));
+        }
+        db.close();
+        return "true";
+    }
+
+    public String getTuto (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_TUTORIAL};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return (c.getString(0));
+        }
+        db.close();
+        return "true";
+    }
+
+    public String getToast (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_TOAST};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return (c.getString(0));
+        }
+        db.close();
+        return "true";
+    }
+
+    public String getLastNotif (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_LNOTIF};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return (c.getString(0));
+        }
+        db.close();
+        return "true";
+    }
+
+    public String getLang (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_LANG};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return (c.getString(0));
+        }
+        db.close();
+        return "true";
+    }
+
+    public String getName (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_NOMBRE};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return (c.getString(0));
+        }
+        db.close();
+        return "";
+    }
+
+    public String getAddress (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_ADDRESS};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return (c.getString(0));
+        }
+        db.close();
+        return "";
+    }
+
+    public String getPass (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_PASSWORD};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return (c.getString(0));
+        }
+        db.close();
+        return "";
+    }
+
+    public Integer getPunt (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_PUNT};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return c.getInt(0);
+        }
+        db.close();
+        return 0;
+    }
+
+    public Integer getPunt2 (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_PUNT2};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            return c.getInt(0);
+        }
+        db.close();
+        return 0;
+    }
+
+    public boolean setNotif (String user, boolean notif) {
+        ContentValues values = new ContentValues();
+        String valu;
+        if (notif) valu = "true";
+        else valu = "false";
+        values.put(KEY_NOTIF, valu);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+        return CheckExist(user);
+    }
+
+    public boolean setToast (String user, boolean toast) {
+        ContentValues values = new ContentValues();
+        String valu;
+        if (toast) valu = "true";
+        else valu = "false";
+        values.put(KEY_TOAST, valu);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+        return CheckExist(user);
+    }
+
+    public boolean setTuto (String user, boolean tuto) {
+        ContentValues values = new ContentValues();
+        String valu;
+        if (tuto) valu = "true";
+        else valu = "false";
+        values.put(KEY_TUTORIAL,valu);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+        return CheckExist(user);
+    }
+
+    public ArrayList<Person> getAllPuncts() {
+        ArrayList<Person> contactList = new ArrayList<Person>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_LOGIN + " WHERE " + KEY_PUNT + " <> 0  ORDER BY " + KEY_PUNT + " ASC";
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // Move to first row
-        cursor.moveToFirst();
-        if(cursor.getCount() > 0){
-            user.put("uid", cursor.getString(1));
-            user.put("nombre", cursor.getString(2));
-            user.put("email", cursor.getString(3));
-            user.put("edad", cursor.getString(4));
-            user.put("direccion", cursor.getString(5));
-            user.put("telefono", cursor.getString(6));
-            user.put("pesoInicial", cursor.getString(7));
-            user.put("nif", cursor.getString(8));
-            user.put("fecha_creacion", cursor.getString(9));
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Person person = new Person();
+                person.setName(cursor.getString(0));
+                person.setFoto(Uri.parse(cursor.getString(3)));
+                person.setPunt(cursor.getInt(5));
+
+                // Adding person to list
+                contactList.add(person);
+            } while (cursor.moveToNext());
         }
-        cursor.close();
         db.close();
-        // return user
-        return user;
+        // return contact list
+        return contactList;
     }
- 
-    /**
-     * Getting user login status
-     * return true if rows are there in table
-     * */
-    public int getRowCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_LOGIN;
+
+    public ArrayList<Person> getAll2Puncts() {
+        ArrayList<Person> contactList = new ArrayList<Person>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_LOGIN + " WHERE " + KEY_PUNT2 + " <> 0  ORDER BY " + KEY_PUNT2 + " ASC";
+
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        int rowCount = cursor.getCount();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Person person = new Person();
+                person.setName(cursor.getString(0));
+                person.setFoto(Uri.parse(cursor.getString(3)));
+                person.setPunt(cursor.getInt(10));
+
+                // Adding person to list
+                contactList.add(person);
+            } while (cursor.moveToNext());
+        }
         db.close();
-        cursor.close();
-         
-        // return row count
-        return rowCount;
+        // return contact list
+        return contactList;
+    }
+
+
+    public void setPuntuacion (Integer p, String user) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_PUNT,p);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+    }
+
+    public boolean setLang (String user, String lang) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_LANG,lang);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+        return true;
+    }
+
+    public void setPuntuacion2 (Integer p, String user) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_PUNT2,p);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+    }
+
+    public boolean setPass (String user, String newP) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_PASSWORD,newP);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+        return CheckExist(user);
+    }
+
+    public boolean setLastNotif (String user, String lnotif) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_LNOTIF,lnotif);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+        return CheckExist(user);
+    }
+
+
+    public boolean setFoto (String user, Uri path) {
+        String stringUri = path.toString();
+        ContentValues values = new ContentValues();
+        values.put(KEY_FOTO, stringUri);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(
+                TABLE_LOGIN,
+                values,
+                "userName = '" + user + "'",
+                null
+        );
+        db.close();
+        return CheckExist(user);
+    }
+
+
+    public Uri getFoto (String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {KEY_FOTO};
+        String[] where = {user};
+        Cursor c = db.query(
+                TABLE_LOGIN,
+                columns,
+                "userName = ?",
+                where,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            db.close();
+            if (c.getString(0).equals("")) return null;
+            else return Uri.parse(c.getString(0));
+        }
+        db.close();
+        return null;
     }
      
     /**
      * Re crate database
      * Delete all tables and create them again
      * */
-    public void resetTables(){
+    public void resetTables() {
         SQLiteDatabase db = this.getWritableDatabase();
         // Delete All Rows
         db.delete(TABLE_LOGIN, null, null);
         db.close();
     }
- 
 }

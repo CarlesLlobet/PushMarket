@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account">Account</string>
+    <string name="action_settings">Settings</string>
+    <string name="address">Address</string>
+    <string name="barallaJEDI">Easy</string>
+    <string name="barallaJEDIprank">Medium</string>
+    <string name="barallaSwissKnife">Hard</string>
+    <string name="btnAddUser">Add user</string>
+    <string name="btnChange">Change</string>
+    <string name="btnChangePasswd">Change password</string>
+    <string name="btnEnter">Enter</string>
+    <string name="btnLogout">Logout</string>
+    <string name="btnNo">No</string>
+    <string name="btnRegister">Add</string>
+    <string name="btnRetry">Retry</string>
+    <string name="btnSi">Yes</string>
+    <string name="btnStart">Play</string>
+    <string name="closeDrawer">Close menu</string>
+    <string name="deleteUser">Delete</string>
+    <string name="deleteUserText">Are you sure deleting the user:</string>
+    <string name="dialog1">New profile picture</string>
+    <string name="error1">The current password is not correct!</string>
+    <string name="error2">Passwords do not match!</string>
+    <string name="error3">Incorrect values. Please try again with another username or password</string>
+    <string name="finalPartida">End of game</string>
+    <string name="finalPartidaText">Congratulations! You\'ve won the game.\nDo you want to play again?</string>
+
+    <string name="helpMemory">
+        "Memory is a game that consists in finding all the paired cards of the table."\n
+        "It starts with all cards facing down, and we turn one, and try to guess where's it's pair."
+        "If we fail, it turns down again, and we continue looking for paired cards."\n
+
+        For more information, visit:\n
+        <a href="https://es.wikipedia.org/wiki/Memoria_(juego)"> Wikipedia </a>.
+    </string>
+    <string name="helpRegister">
+        "Hi, if you are the administrator, please proceed carefully, if not, just abandon the register screen."\n
+        "In this screen you'll be able to register users, just introducing it's" <b>Name</b>,<b>address</b>,<b>username</b> and <b>password</b>"."\n
+        "Before registering, you'll be able to decide if you want that the user starts with the tutorial (active by default)."
+    </string>
+    <string name="helpCalc">
+        "This is not a normal calculator."\n\n
+        "... Okay, it is, but not just it:"\n
+        "This calculator will allow us to call too."\n
+        "Try to press the call button and discover it yourself!"
+    </string>
+    <string name="helpRanking">
+        Here we can see the Memory ranking of all players that have played in this device.
+    </string>
+    <string name="helpMediaPlayer">
+        "This music player will let us:"\n\n
+
+        <u>-Forward:</u> "Get the audio to the beginning again"\n
+        <u>-Play/Pause:</u> "Allows to pause the reproduction and play it again where you paused it"\n
+        <u>-Stop:</u> "Stops the audio and gets it to the beginning again"\n
+        <u>-Loop:</u> "Activates the "Loop" mode, so when the audio ends, it start again"\n
+    </string>
+    <string name="helpMenu">
+        "This is an application for the JEDI course of January 2016."\n\n
+
+        "Through it, we'll try to demonstrate the acknowledgement and the Android level acquired in this course and the interest of the student.
+
+        Through the menu you'll be able to access to:"\n\n
+
+        <u>-Memory:</u> "The typical game where you'll have to demonstrate your memory habilities with turned cards."\n
+        "For more information and game rules please see the game help."\n\n
+
+        <u>-Ranking:</u> "This section will allow us to access to the game ranking where we will be able to see the results of all
+        users registered in this device."\n\n
+
+        <u>-Calculator:</u> "In this section we can access to a convencional calculator that also will allow us to call
+        through our cell phone SIM."\n\n
+
+        <u>-Account:</u> "Here we'll be able to access the <b>settings</b> and logout."\n\n
+
+
+        To access the <b>settings</b>, "we'll also be able to click on our profile picture on the menu header."
+    </string>
+    <string name="helpSettings">
+        "In settings we'll be able to see all our personal information and verify it."\n
+        "In case of mistake or some old data, talk with the administrator to modify it."\n\n
+
+        The <b>Logout</b> button will allow you to logout so anybody can access your account or your personal information.
+    </string>
+    <string name="intents">Punctuation:</string>
+    <string name="lnotif">Last notification:</string>
+    <string name="name">Name:</string>
+    <string name="newPasswd">New password:</string>
+    <string name="newPasswd2">Repeat the new password</string>
+    <string name="notifDiv">You can\'t divide per 0!</string>
+    <string name="notifGame1">"You\'ve finished with "</string>
+    <string name="notifGame2">" tries"</string>
+    <string name="notifText">The resut is not a NaN (Not a Number)!</string>
+    <string name="novaPartida">New game</string>
+    <string name="novaPartidaText">Welcome to Memory\nChoose the size and a deck of cards</string>
+    <string name="oldPasswd">Current password</string>
+    <string name="openDrawer">Open Drawer</string>
+    <string name="passwd">Password:</string>
+    <string name="progress">Processing...</string>
+    <string name="tituloAyuda">Help</string>
+    <string name="tituloHome">Home</string>
+    <string name="tituloLogin">Log In</string>
+    <string name="tituloPassword">Change password</string>
+    <string name="tituloRegister">Add user</string>
+    <string name="tituloSettings">Settings</string>
+    <string name="user">User:</string>
+    <string name="welcome">Welcome to\nPushMarket</string>
+    <string name="btnClose">Close</string>
+    <string name="spa">Spanish</string>
+    <string name="en">English</string>
+    <string name="cat">Catalan</string>
+    <string name="language">Language will change when the screen changes</string>
+    <string name="checkBoxText">Don\'t show anymore</string>
+    <string name="notifRegister">User correctly registered!</string>
+    <string name="notifPass">Password correctly changed!</string>
+</resources>

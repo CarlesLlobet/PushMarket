@@ -1,243 +1,208 @@
 package xyz.carlesllobet.pushmarket.DB;
 
 import android.content.Context;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
+import xyz.carlesllobet.pushmarket.Domain.Person;
 
 public class UserFunctions {
-     
-    private JSONParser jsonParser;
-     
-    // Testing in localhost using wamp or xampp 
-    // use http://10.0.2.2/ to connect to your localhost ie http://localhost/
-    
-    //private static String loginURL = "http://192.168.69.18/servei_web";
-    //private static String registerURL = "http://192.168.69.18/servei_web";
-    private static String loginURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-	private static String registerURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-	private static String despertarURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-	private static String antesComerURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-	private static String despuesComerURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-    private static String sosURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-    private static String testURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-     
-    private static String login_tag = "login";
-    private static String register_tag = "register";
-    private static String despertar_tag = "despertar";
-    private static String antesComer_tag = "antesComer";
-    private static String despuesComer_tag = "despuesComer";
-    private static String sos_tag = "sos";
-    private static String test_tag = "test";
-     
-    // constructor
-    public UserFunctions(){
-        jsonParser = new JSONParser();
-    }
-    
-    public JSONObject despertar(Context context){
-    	DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String,String> usuari = db.getUserDetails();
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", despertar_tag));
-        params.add(new BasicNameValuePair("uuid", usuari.get("uid")));
-        params.add(new BasicNameValuePair("nombre", usuari.get("nombre")));
-        
-        JSONObject json = jsonParser.getJSONFromUrl(despertarURL, params);
 
-        return json;
-    }
-    
-    public JSONObject antesComer(Context context){
-    	DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String,String> usuari = db.getUserDetails();
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", antesComer_tag));
-        params.add(new BasicNameValuePair("uuid", usuari.get("uid")));
-        params.add(new BasicNameValuePair("nombre", usuari.get("nombre")));
-        
-        JSONObject json = jsonParser.getJSONFromUrl(antesComerURL, params);
 
-        return json;
-    }
-
-    public JSONObject despuesComer(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String,String> usuari = db.getUserDetails();
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", despuesComer_tag));
-        params.add(new BasicNameValuePair("uuid", usuari.get("uid")));
-        params.add(new BasicNameValuePair("nombre", usuari.get("nombre")));
-
-        JSONObject json = jsonParser.getJSONFromUrl(despuesComerURL, params);
-
-        return json;
-    }
-
-    public JSONObject sos(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String,String> usuari = db.getUserDetails();
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", sos_tag));
-        params.add(new BasicNameValuePair("uuid", usuari.get("uid")));
-        params.add(new BasicNameValuePair("nombre", usuari.get("nombre")));
-
-        JSONObject json = jsonParser.getJSONFromUrl(sosURL, params);
-
-        return json;
-    }
-
-    public JSONObject test(Context context, String hambre){
-        DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String,String> usuari = db.getUserDetails();
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", test_tag));
-        params.add(new BasicNameValuePair("uuid", usuari.get("uid")));
-        params.add(new BasicNameValuePair("nombre", usuari.get("nombre")));
-        params.add(new BasicNameValuePair("hambre", hambre));
-
-        JSONObject json = jsonParser.getJSONFromUrl(testURL, params);
-
-        return json;
-    }
-     
     /**
-     * function make Login Request
-     * @param email
-     * @param password
-     * */
-    public JSONObject loginUser(String email, String password){
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", login_tag));
-        params.add(new BasicNameValuePair("email", email));
-        params.add(new BasicNameValuePair("password", password));
-        
-        JSONObject json = jsonParser.getJSONFromUrl(loginURL, params);
+     * Function to know if user has admin permissions
+     */
 
-        return json;
-    }
-     
-    /**
-     * function make Register Request
-     * @param nombre
-     * @param email
-     * @param password
-     * @param direccion
-     * @param nif
-     * @param pesoInicial
-     * @param telefono
-     * */
-    public JSONObject registerUser(String nombre, String email, String edad, String password,
-    		String direccion, String nif, String pesoInicial, String telefono){
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", register_tag));
-        params.add(new BasicNameValuePair("nombre", nombre));
-        params.add(new BasicNameValuePair("email", email));
-        params.add(new BasicNameValuePair("edad", edad));
-        params.add(new BasicNameValuePair("password", password));
-        params.add(new BasicNameValuePair("direccion", direccion));
-        params.add(new BasicNameValuePair("telefono", telefono));
-        params.add(new BasicNameValuePair("pesoInicial", pesoInicial));
-        params.add(new BasicNameValuePair("nif", nif));
-         
-        // getting JSON Object
-        JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
-
-        return json;
+    public boolean isUserAdmin(Context context) { //S'ha de fer amb SharedPreferences
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (preferences.getString("userName", "").equals("admin")) return true;
+        return false;
     }
 
     /**
      * Function to know if user has admin permissions
-     * */
-    
-    public boolean isUserAdmin(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String,String> usuari = db.getUserDetails();
+     */
 
-        if (usuari.get("email").equals("admin@admin.com")){
-            // admin user
-            return true;
+    public boolean loginUser(Context context, String user, String password) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res;
+        //if ((!user.equals("admin"))||(!password.equals("4dm1n")))
+        res = db.SignIn(user, password);
+        //else res = true;
+        if (res) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.putString("userName", user);
+            editor.commit();
         }
-        return false;
+        return res;
     }
-     
+
     /**
      * Function get Login status
-     * */
-    public boolean isUserLoggedIn(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        int count = db.getRowCount();
-        if(count > 0){
-            // user logged in
-            return true;
-        }
+     */
+    public boolean isUserLoggedIn(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (preferences.contains("userName")) return true;
         return false;
     }
 
-    public String getEmail(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String, String> user = db.getUserDetails();
-        return user.get("email");
+    public String getUserName (Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("userName", "");
+        return res;
     }
 
-    public String getName(Context context){
+    public String getName(Context context, String username) {
         DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String, String> user = db.getUserDetails();
-        return user.get("nombre");
+        String res = db.getName(username);
+        return res;
     }
 
-    public String getNIF(Context context){
+    public String getLang(Context context, String username) {
         DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String, String> user = db.getUserDetails();
-        return user.get("nif");
+        String res = db.getLang(username);
+        return res;
     }
 
-    public String getAddress(Context context){
+    public String getPass(Context context, String username) {
         DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String, String> user = db.getUserDetails();
-        return user.get("direccion");
+        String res = db.getPass(username);
+        return res;
     }
 
-    public String getPhone(Context context){
+    public String getAddress(Context context, String username) {
         DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String, String> user = db.getUserDetails();
-        return user.get("telefono");
+        String res = db.getAddress(username);
+        return res;
     }
 
-    public String getAge(Context context){
+    public Uri getFoto(Context context, String username) {
         DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String, String> user = db.getUserDetails();
-        return user.get("edad");
+        Uri res = db.getFoto(username);
+        return res;
     }
 
-    public String getPesoInicial(Context context){
+    public boolean getNotif(Context context, String username) {
         DatabaseHandler db = new DatabaseHandler(context);
-        HashMap<String, String> user = db.getUserDetails();
-        return user.get("pesoInicial");
+        String res = db.getNotif(username);
+        return res.equals("true");
     }
 
+    public boolean getTuto(Context context, String username) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        String res = db.getTuto(username);
+        return res.equals("true");
+    }
 
-     
+    public boolean getToast(Context context, String username) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        String res = db.getToast(username);
+        return res.equals("true");
+    }
+
+    public String getLastNotif(Context context, String username) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        String res = db.getLastNotif(username);
+        return res;
+    }
+
+    public Integer getPunt(Context context, String username) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        Integer res = db.getPunt(username);
+        return res;
+    }
+
+    public Integer getPunt2(Context context, String username) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        Integer res = db.getPunt2(username);
+        return res;
+    }
+
+    public boolean registerUser(Context context, String nombre, String username, String password, String address, boolean tutorial) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        String tuto = "true";
+        if (!tutorial) tuto = "false";
+        boolean res = db.addUser(nombre, username, password, address, tuto);
+        return res;
+    }
+
+    public boolean setNotif(Context context, String username, boolean notif) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res = db.setNotif(username, notif);
+        return res;
+    }
+
+    public boolean setLang(Context context, String username, String lang) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res = db.setLang(username, lang);
+        return res;
+    }
+
+    public boolean setTuto(Context context, String username, boolean tuto) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res = db.setTuto(username, tuto);
+        return res;
+    }
+
+    public boolean setToast(Context context, String username, boolean toast) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res = db.setToast(username, toast);
+        return res;
+    }
+
+    public boolean setLastNotif(Context context, String username, String lnotif) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res = db.setLastNotif(username, lnotif);
+        return res;
+    }
+
+    public void setPunt(Context context, String username, int punt) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        db.setPuntuacion(punt, username);
+    }
+
+    public void setPunt2(Context context, String username, int punt) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        db.setPuntuacion2(punt, username);
+    }
+
+    public boolean setFoto(Context context, String username, Uri image) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res = db.setFoto(username, image);
+        return res;
+    }
+
+    public boolean setPass(Context context, String username, String newP) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res = db.setPass(username, newP);
+        return res;
+    }
+
+    public ArrayList<Person> getAllPunts(Context context){
+        DatabaseHandler db = new DatabaseHandler(context);
+        ArrayList<Person> llista = db.getAllPuncts();
+        return llista;
+    }
+
+    public ArrayList<Person> getAll2Punts(Context context){
+        DatabaseHandler db = new DatabaseHandler(context);
+        ArrayList<Person> llista = db.getAll2Puncts();
+        return llista;
+    }
     /**
      * Function to logout user
      * Reset Database
-     * */
-    public boolean logoutUser(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        db.resetTables();
-        return true;
+     */
+    public void logoutUser(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.remove("userName");
+        editor.commit();
     }
-     
 }

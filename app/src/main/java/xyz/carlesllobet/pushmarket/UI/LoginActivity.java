@@ -1,4 +1,4 @@
-package xyz.carlesllobet.pushmarket.UI.UI;
+package xyz.carlesllobet.pushmarket.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import xyz.carlesllobet.swissknife.DB.UserFunctions;
-import xyz.carlesllobet.swissknife.R;
+import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,15 +29,12 @@ public class LoginActivity extends AppCompatActivity {
     private String password;
 
     private Button btnRetry;
-    private ImageView imageRetry;
-    private int random;
 
     private FrameLayout card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        random = 0;
         clickable = true;
 
         setContentView(R.layout.activity_login);
@@ -47,13 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
 
         btnRetry = (Button) findViewById(R.id.btnRetry);
-        imageRetry = (ImageView) findViewById(R.id.imageRetry);
 
         card = (FrameLayout) findViewById(R.id.cardLogin);
 
         logo = (ImageView) findViewById(R.id.imageView);
 
-        logo.setImageResource(R.mipmap.ic_swissknife);
+        logo.setImageResource(R.mipmap.ic_pushmarket);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
@@ -82,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     } else {
                         card.setVisibility(View.VISIBLE);
-                        setImageRandom();
                     }
                 }
             }
@@ -96,29 +91,5 @@ public class LoginActivity extends AppCompatActivity {
                 inputPassword.setText("");
             }
         });
-    }
-
-    public void setImageRandom(){
-        String stringGenerated = "xyz.carlesllobet.swissknife:drawable/bush";
-        switch (random) {
-            case 0:
-                stringGenerated = "xyz.carlesllobet.swissknife:drawable/bush";
-                break;
-            case 1:
-                stringGenerated = "xyz.carlesllobet.swissknife:drawable/yisus";
-                break;
-            case 2:
-                stringGenerated = "xyz.carlesllobet.swissknife:drawable/dicaprio";
-                break;
-            case 3:
-                stringGenerated = "xyz.carlesllobet.swissknife:drawable/dogz";
-                break;
-        }
-
-        int id = getResources().getIdentifier(stringGenerated, null, null);
-        imageRetry.setImageResource(id);
-
-        if (random < 3) ++random;
-        else random=0;
     }
 }
