@@ -19,13 +19,13 @@ public class UserFunctions2 {
     
     //private static String loginURL = "http://192.168.69.18/servei_web";
     //private static String registerURL = "http://192.168.69.18/servei_web";
-    private static String loginURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-	private static String registerURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-	private static String despertarURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-	private static String antesComerURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-	private static String despuesComerURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-    private static String sosURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
-    private static String testURL = "http://loweight.hipnosis-adolfocalderero.com/webservice/index.php";
+    private static String loginURL = "http://carlesllobet.xyz/webservice/index.php";
+	private static String registerURL = "http://carlesllobet.xyz/webservice/index.php";
+	private static String despertarURL = "http://carlesllobet.xyz/webservice/index.php";
+	private static String antesComerURL = "http://carlesllobet.xyz/webservice/index.php";
+	private static String despuesComerURL = "http://carlesllobet.xyz/webservice/index.php";
+    private static String sosURL = "http://carlesllobet.xyz/webservice/index.php";
+    private static String testURL = "http://carlesllobet.xyz/webservice/index.php";
      
     private static String login_tag = "login";
     private static String register_tag = "register";

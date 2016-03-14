@@ -105,7 +105,7 @@
     <string name="tituloRegister">Add user</string>
     <string name="tituloSettings">Settings</string>
     <string name="user">User:</string>
-    <string name="welcome">Welcome to\nPushMarket</string>
+    <string name="welcome">Welcome to</string>
     <string name="btnClose">Close</string>
     <string name="spa">Spanish</string>
     <string name="en">English</string>

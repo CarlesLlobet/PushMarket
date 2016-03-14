@@ -30,7 +30,7 @@ public class MenuActivity extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(MenuActivity.this).toBundle());
             }
-        }, 1500);
+        }, 2000);
     }
 
     @Override

@@ -2,8 +2,8 @@ package xyz.carlesllobet.pushmarket.UI;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import xyz.carlesllobet.pushmarket.R;
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.R;
 
 /**
  * Created by CarlesLlobet on 26/01/2016.

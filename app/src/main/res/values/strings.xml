@@ -12,7 +12,7 @@
 
     <string name="account">Cuenta</string>
     <string name="progress">Procesando...</string>
-    <string name="welcome">Bienvenido a\nPushMarket</string>
+    <string name="welcome">Bienvenido a</string>
 
     <!-- Error Messages -->
 
@@ -44,7 +44,7 @@
     <string name="address">"Dirección:"</string>
     <string name="intents">Puntuación:</string>
 
-    <!-- RankingFragment Fields -->
+    <!-- ProductsFragment Fields -->
     <string name="deleteUser">"Eliminar"</string>
     <string name="deleteUserText">"Seguro que quieres eliminar el usuario: "</string>
 
@@ -105,24 +105,7 @@
         <u>-Loop:</u> Pone la reproducción en modo "Repetir", por lo que cuando el audio finaliza, vuelve a reproducirse\n
     </string>
     <string name="helpMenu">
-        Esta es una aplicación para el curso de JEDI de Enero de 2016.\n\n
-
-        A traves de ella se intentarà demostrar los conocimientos y el nivel de Android adquiridos gracias a este curso y el interes del alumno.
-        Desde el menú podrás acceder a:\n\n
-
-        <u>-Memory:</u> Accede al tipico juego de memory donde tendras que demostrar tu habilidad de memoria con cartas giradas.\n
-        Para informacion y reglas del juego ver la ayuda de el juego.\n\n
-
-        <u>-Ranking:</u> Este apartado del menú nos permite acceder  al ranking del juego donde podremos ver los resultados de todos los
-        usuarios registrados en este dispositivo.\n\n
-
-        <u>-Calculadora:</u> Este apartado del menú nos permite acceder a una calculadora convencional que ademas nos permite llamar
-        a traves de la SIM de nuestro telefono.\n\n
-
-        <u>-Cuenta:</u> Aqui podremos acceder a los <b>ajustes</b> y cerrar sesión.\n\n
-
-
-        Para acceder a los <b>ajustes</b>, también podremos pulsar nuestra fotografia de perfil en el encabezado del menú.
+        Para añadir un elemento a tu lista de la compra, pasa un tag NFC o pulsa el boton +
     </string>
     <string name="helpSettings">
         En ajustes puedes ver toda tu información personal para verificarla.\n

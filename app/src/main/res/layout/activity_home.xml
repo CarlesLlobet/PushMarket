@@ -6,28 +6,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <ImageView
         android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:drawableLeft="@mipmap/ic_pushmarket"
-        android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/white"
-        android:textSize="40dp"
-        android:textStyle="bold" />
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_below="@id/textView9"
-        android:layout_height="wrap_content">
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@mipmap/ic_pushmarket_all"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"/>
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/textView9"
             android:layout_centerHorizontal="true"
             android:textSize="18dp"
             android:padding="30dp"
@@ -35,5 +26,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white" />
 
-    </ScrollView>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_margin="25dp"
+        android:background="@mipmap/ic_cart_plus"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
 </RelativeLayout>
