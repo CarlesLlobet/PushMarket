@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
         logo = (ImageView) findViewById(R.id.imageView);
 
-        logo.setImageResource(R.mipmap.ic_pushmarket);
+        logo.setImageResource(R.mipmap.ic_push);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     UserFunctions userFunction = new UserFunctions();
                     if (userFunction.loginUser(getApplicationContext(), user, password)) {
                         // Launch Dashboard Screen
-                        Intent dashboard = new Intent(getApplicationContext(), MenuActivity.class);
+                        Intent dashboard = new Intent(getApplicationContext(), GifActivity.class);
 
                         // Close all views before launching Dashboard
                         dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

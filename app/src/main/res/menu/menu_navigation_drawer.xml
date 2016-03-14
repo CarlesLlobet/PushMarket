@@ -4,11 +4,11 @@
     <item
         android:id="@+id/inicio"
         android:title="@string/tituloHome"
-        android:icon="@mipmap/ic_pushmarket"/>
+        android:icon="@drawable/cart_outline"/>
     <item
         android:id="@+id/products"
         android:title="@string/tituloProducts"
-        android:icon="@mipmap/ic_cart_plus"/>
+        android:icon="@drawable/cart_plus"/>
     <item
         android:id="@+id/action_notification"
         android:icon="@drawable/ic_account_grey600_24dp"

@@ -24,10 +24,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
     UserFunctions userFunctions = new UserFunctions();
     ArrayList<Product> persones;
 
-    public ProductsAdapter(Context con, boolean primera){
-        context=con;
-        if (primera) persones = userFunctions.getAllPunts(context);
-        else persones = userFunctions.getAllPunts(context);
+    public ProductsAdapter(Context con) {
+        persones = userFunctions.getAllPunts(con);
     }
 
     @Override

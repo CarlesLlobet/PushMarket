@@ -301,7 +301,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        checkMenuItem(5);
+        checkMenuItem(2);
     }
 
     @Override

@@ -79,7 +79,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 finish();
                 break;
             case R.id.products:
-                intent = new Intent(getApplicationContext(), ProductsAdapter.class);
+                intent = new Intent(getApplicationContext(), ProductsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
@@ -124,6 +124,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void checkMenuItem(int activity) {
+        for (int i = 0; i < navigationView.getMenu().size(); ++i) navigationView.getMenu().getItem(i).setChecked(false);
         navigationView.getMenu().getItem(activity).setChecked(true);
     }
 }

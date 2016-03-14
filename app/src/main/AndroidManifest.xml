@@ -8,7 +8,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_pushmarket"
+        android:icon="@mipmap/ic_push"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -27,7 +27,12 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".UI.MenuActivity"
+            android:name=".UI.ProductsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".UI.GifActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
         </activity>

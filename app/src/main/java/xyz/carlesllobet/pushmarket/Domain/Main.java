@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import xyz.carlesllobet.pushmarket.DB.DatabaseHandler;
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
 import xyz.carlesllobet.pushmarket.UI.LoginActivity;
-import xyz.carlesllobet.pushmarket.UI.MenuActivity;
+import xyz.carlesllobet.pushmarket.UI.GifActivity;
 
 public class Main extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class Main extends AppCompatActivity {
 
         userFunctions = new UserFunctions();
         if(userFunctions.isUserLoggedIn(getApplicationContext())){
-            Intent menu = new Intent(getApplicationContext(), MenuActivity.class);
+            Intent menu = new Intent(getApplicationContext(), GifActivity.class);
             menu.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(menu);
             // Closing menu
