@@ -6,6 +6,10 @@
         android:title="@string/tituloHome"
         android:icon="@mipmap/ic_pushmarket"/>
     <item
+        android:id="@+id/products"
+        android:title="@string/tituloProducts"
+        android:icon="@mipmap/ic_cart_plus"/>
+    <item
         android:id="@+id/action_notification"
         android:icon="@drawable/ic_account_grey600_24dp"
         android:title="@string/account">

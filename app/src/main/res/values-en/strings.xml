@@ -56,27 +56,7 @@
         <u>-Stop:</u> "Stops the audio and gets it to the beginning again"\n
         <u>-Loop:</u> "Activates the "Loop" mode, so when the audio ends, it start again"\n
     </string>
-    <string name="helpMenu">
-        "This is an application for the JEDI course of January 2016."\n\n
-
-        "Through it, we'll try to demonstrate the acknowledgement and the Android level acquired in this course and the interest of the student.
-
-        Through the menu you'll be able to access to:"\n\n
-
-        <u>-Memory:</u> "The typical game where you'll have to demonstrate your memory habilities with turned cards."\n
-        "For more information and game rules please see the game help."\n\n
-
-        <u>-Ranking:</u> "This section will allow us to access to the game ranking where we will be able to see the results of all
-        users registered in this device."\n\n
-
-        <u>-Calculator:</u> "In this section we can access to a convencional calculator that also will allow us to call
-        through our cell phone SIM."\n\n
-
-        <u>-Account:</u> "Here we'll be able to access the <b>settings</b> and logout."\n\n
-
-
-        To access the <b>settings</b>, "we'll also be able to click on our profile picture on the menu header."
-    </string>
+    <string name="helpMenu">"To add a product to your list, put the device on a NFC tag or click the button"</string>
     <string name="helpSettings">
         "In settings we'll be able to see all our personal information and verify it."\n
         "In case of mistake or some old data, talk with the administrator to modify it."\n\n
@@ -114,4 +94,5 @@
     <string name="checkBoxText">Don\'t show anymore</string>
     <string name="notifRegister">User correctly registered!</string>
     <string name="notifPass">Password correctly changed!</string>
+    <string name="tituloProducts">Products</string>
 </resources>

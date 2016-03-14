@@ -55,26 +55,7 @@
         <u>-Stop:</u> "Atura l'audio i el porta al principi"\n
         <u>-Loop:</u> "Posa la reproducció en mode "Repetir", pel que quan l'audio finalitza, torna a reproduir-se"\n
     </string>
-    <string name="helpMenu">
-        "Aquesta és una aplicació per al curs de JEDI de Gener de 2016."\n\n
-
-        "A través d'ella s'intentarà demostrar els coneixements i nivell d'Android adquirits gràcies a aquest curs i l'interès de l'alumne.
-        Des del menú podràs accedir a:"\n\n
-
-        <u>-Memory:</u> "Accedeix al típic joc de memory on hauràs de demostrar la teva habilitat de memòria amb cartes girades."\n
-        "Per informació i regles del joc, veure l'ajuda d'aquest."\n\n
-
-        <u>-Ranking:</u> "Aquest apartat delmenú ens permet accedir al ranking del joc on podrèm veure els resultats de tots els usuaris
-        registrats en aquest dispositiu."\n\n
-
-        <u>-Calculadora:</u> "Aquest apartat del menú ens permetrà accedir a una calculadora convencional que a més ens permet trucar
-        a través de la SIM del nostre telèfon."\n\n
-
-        <u>-Compte:</u> Aquí podrem accedir a les <b>preferències</b> i tancar sessió.\n\n
-
-
-        Para accedir a les <b>preferències</b>, també podem prèmer la nostra fotografía de perfil de la capçalera del menú."
-    </string>
+    <string name="helpMenu">"Per a afegir un element a la teva llista de la compra, passa un tag NFC o clica el botó"</string>
     <string name="helpSettings">
         "A les preferències podem veure la nostra informació personal per verificar-la."\n
         "En cas d'error o canvi d'alguna dada, parla amb l'administrador per modificar-ho."\n\n
@@ -112,4 +93,5 @@
     <string name="checkBoxText">No tornar a mostrar</string>
     <string name="notifRegister">Usuari afegit correctament!</string>
     <string name="notifPass">Contrasenya canviada correctament!</string>
+    <string name="tituloProducts">Productes</string>
 </resources>

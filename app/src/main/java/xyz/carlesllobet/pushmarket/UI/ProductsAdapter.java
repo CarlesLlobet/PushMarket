@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
-import xyz.carlesllobet.pushmarket.Domain.Person;
+import xyz.carlesllobet.pushmarket.Domain.Product;
 import xyz.carlesllobet.pushmarket.R;
 
 
@@ -22,12 +22,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
 
     private Context context;
     UserFunctions userFunctions = new UserFunctions();
-    ArrayList<Person> persones;
+    ArrayList<Product> persones;
 
     public ProductsAdapter(Context con, boolean primera){
         context=con;
         if (primera) persones = userFunctions.getAllPunts(context);
-        else persones = userFunctions.getAll2Punts(context);
+        else persones = userFunctions.getAllPunts(context);
     }
 
     @Override

@@ -5,7 +5,7 @@ import android.net.Uri;
 /**
  * Created by CarlesLlobet on 31/01/2016.
  */
-public class Person {
+public class Product {
 
     //private variables
     String userName;
@@ -13,12 +13,12 @@ public class Person {
     Uri foto;
 
     // Empty constructor
-    public Person() {
+    public Product() {
 
     }
 
     // constructor
-    public Person(String name, Integer punt, Uri pic) {
+    public Product(String name, Integer punt, Uri pic) {
         this.userName = name;
         this.punt = punt;
         this.foto = pic;

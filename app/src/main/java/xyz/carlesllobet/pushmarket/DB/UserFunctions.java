@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 
-import xyz.carlesllobet.pushmarket.Domain.Person;
+import xyz.carlesllobet.pushmarket.Domain.Product;
 
 public class UserFunctions {
 
@@ -183,15 +183,9 @@ public class UserFunctions {
         return res;
     }
 
-    public ArrayList<Person> getAllPunts(Context context){
+    public ArrayList<Product> getAllPunts(Context context){
         DatabaseHandler db = new DatabaseHandler(context);
-        ArrayList<Person> llista = db.getAllPuncts();
-        return llista;
-    }
-
-    public ArrayList<Person> getAll2Punts(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        ArrayList<Person> llista = db.getAll2Puncts();
+        ArrayList<Product> llista = db.getAllPuncts();
         return llista;
     }
     /**

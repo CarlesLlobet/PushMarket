@@ -9,7 +9,7 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 
-import xyz.carlesllobet.pushmarket.Domain.Person;
+import xyz.carlesllobet.pushmarket.Domain.Product;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
  
@@ -407,33 +407,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return CheckExist(user);
     }
 
-    public ArrayList<Person> getAllPuncts() {
-        ArrayList<Person> contactList = new ArrayList<Person>();
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_LOGIN + " WHERE " + KEY_PUNT + " <> 0  ORDER BY " + KEY_PUNT + " ASC";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Person person = new Person();
-                person.setName(cursor.getString(0));
-                person.setFoto(Uri.parse(cursor.getString(3)));
-                person.setPunt(cursor.getInt(5));
-
-                // Adding person to list
-                contactList.add(person);
-            } while (cursor.moveToNext());
-        }
-        db.close();
-        // return contact list
-        return contactList;
-    }
-
-    public ArrayList<Person> getAll2Puncts() {
-        ArrayList<Person> contactList = new ArrayList<Person>();
+    public ArrayList<Product> getAllPuncts() {
+        ArrayList<Product> productsList = new ArrayList<Product>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_LOGIN + " WHERE " + KEY_PUNT2 + " <> 0  ORDER BY " + KEY_PUNT2 + " ASC";
 
@@ -443,18 +418,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Person person = new Person();
-                person.setName(cursor.getString(0));
-                person.setFoto(Uri.parse(cursor.getString(3)));
-                person.setPunt(cursor.getInt(10));
+                Product product = new Product();
+                product.setName(cursor.getString(0));
+                product.setFoto(Uri.parse(cursor.getString(3)));
+                product.setPunt(cursor.getInt(10));
 
                 // Adding person to list
-                contactList.add(person);
+                productsList.add(product);
             } while (cursor.moveToNext());
         }
         db.close();
         // return contact list
-        return contactList;
+        return productsList;
     }
 
 

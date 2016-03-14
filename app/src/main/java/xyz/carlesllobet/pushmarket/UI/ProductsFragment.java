@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import xyz.carlesllobet.swissknife.R;
+import xyz.carlesllobet.pushmarket.R;
 
 
 public class ProductsFragment extends Fragment {
