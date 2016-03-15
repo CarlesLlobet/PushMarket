@@ -27,10 +27,10 @@ public class GifActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                     Intent intent = new Intent(getApplicationContext(), xyz.carlesllobet.pushmarket.UI.HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(GifActivity.this).toBundle());
             }
-        }, 3000);
+        }, 1350);
     }
 
     @Override

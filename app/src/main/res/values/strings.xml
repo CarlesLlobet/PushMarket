@@ -20,52 +20,28 @@
     <string name="error2">"Las contraseñas no coinciden!"</string>
     <string name="error3">"Datos incorrectos. Prueba con otro username o contraseña"</string>
 
-    <!-- Notification -->
-    <string name="notifDiv">"No puedes dividir entre 0!"</string>
-    <string name="notifText">"El resultado es un NaN(Not a Number)!"</string>
-    <string name="notifGame1">"Has acabado con "</string>
-    <string name="notifGame2">" intentos"</string>
-
-    <!-- Dialogos emergentes -->
-    <string name="dialog1">"Nueva foto de perfil"</string>
-
     <!-- Login Fields -->
     <string name="user">"Usuario:"</string>
     <string name="passwd">"Contraseña:"</string>
+    <string name="error">"Error"</string>
+    <string name="loginFail">"El usuario o contraseña introducidos no son correctos"</string>
+
 
     <!-- ChangeUser Fields -->
     <string name="oldPasswd">"Contraseña actual:"</string>
     <string name="newPasswd">"Nueva contraseña:"</string>
     <string name="newPasswd2">"Repita la nueva contraseña:"</string>
 
-    <!-- Settings/Register Fields -->
-    <string name="name">"Nombre:"</string>
-    <string name="lnotif">"Última notificacion:"</string>
-    <string name="address">"Dirección:"</string>
-    <string name="intents">Puntuación:</string>
-
     <!-- ProductsFragment Fields -->
     <string name="deleteUser">"Eliminar"</string>
     <string name="deleteUserText">"Seguro que quieres eliminar el usuario: "</string>
-
-    <!-- Memory Fields -->
-    <string name="finalPartida">"Fin de partida"</string>
-    <string name="finalPartidaText">"Felicidades! Has ganado el juego.\nQuieres volver a jugar?"</string>
-    <string name="novaPartida">"Nueva partida"</string>
-    <string name="novaPartidaText">"Bienvenido a Memory\nElige una baraja y un tamaño de tablero"</string>
-    <string name="barallaJEDI">"Fácil"</string>
-    <string name="barallaJEDIprank">"Medio"</string>
-    <string name="barallaSwissKnife">"Difícil"</string>
-    <string name="btnStart">"Empezar"</string>
-    <string name="btnSi">"Si"</string>
-    <string name="btnNo">"No"</string>
 
     <!-- Buttons -->
     <string name="btnEnter">Entrar</string>
     <string name="btnChange">Cambiar</string>
     <string name="btnAddUser">Añadir usuario</string>
     <string name="btnChangePasswd">Cambiar contraseña</string>
-    <string name="btnRegister">   Añadir</string>
+    <string name="btnRegister">   Registrar-se</string>
     <string name="btnLogout">   Cerrar sesión</string>
     <string name="btnRetry">   Reintentar</string>
 
@@ -73,30 +49,7 @@
     <string name="action_settings">Ajustes</string>
     <string name="openDrawer">Open Drawer</string>
     <string name="closeDrawer">Cerrar menu</string>
-    <string name="helpMemory">
-        Memory es un juego que consiste en encontrar todas las parejas de cartas.\n
-        Se empieza con todas las cartas hacia abajo, se destapa una, y se intenta adivinar donde esta su pareja.
-        Si se falla, se vuelve a poner hacia abajo la anterior, y se siguen buscando parejas.\n
-        Cuando una pareja se encuentra, se dejan las dos cartas hacia arriba.\n\n
-
-        Para más información, visitar:\n
-        <a href="https://es.wikipedia.org/wiki/Memoria_(juego)"> Wikipedia </a>.
-    </string>
-    <string name="helpRegister">
-        Buenas, si eres el administrador procede con cuidado, y en caso contrario abandona la pantalla de registro.\n
-        En esta pantalla podras registrar usuarios, tan solo introduciendo su <b>Nombre</b>,<b>direcció</b>,<b>nombre de usuario</b> y <b>contraseña</b>.\n
-        Antes de registrar-lo, podras marcar si quieres que el usuario empieze con el tutorial (por defecto activo).
-    </string>
-    <string name="helpCalc">
-        Esta no es una calculadora normal y corriente.\n\n
-        ... Vale, si lo es, pero no solo es eso:\n
-        Esta calculadora nos permitira tambien para llamar.\n
-        ¡Prueba a pulsar el botón de llamada y descubrelo tu mismo!
-    </string>
-    <string name="helpRanking">
-        Aquí podemos ver el ranking en el Memory de todos los jugadores inscritos en este dispositivo.
-    </string>
-    <string name="helpMediaPlayer">
+    <string name="helpHome">
         Este reproductor de musica te permitirá:\n\n
 
         <u>-Forward:</u> Lleva el audio al principio otra vez\n

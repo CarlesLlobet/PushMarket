@@ -1,7 +1,9 @@
 package xyz.carlesllobet.pushmarket.UI;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,10 +18,9 @@ import xyz.carlesllobet.pushmarket.R;
 public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
+    private Button btnRegister;
     private EditText inputUser;
     private EditText inputPassword;
-
-    private ImageView logo;
 
     private boolean clickable;
 
@@ -27,10 +28,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private String user;
     private String password;
-
-    private Button btnRetry;
-
-    private FrameLayout card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         inputUser = (EditText) findViewById(R.id.loginUser);
         inputPassword = (EditText) findViewById(R.id.loginPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-
-        btnRetry = (Button) findViewById(R.id.btnRetry);
-
-        card = (FrameLayout) findViewById(R.id.cardLogin);
-
-        logo = (ImageView) findViewById(R.id.imageView);
-
-        logo.setImageResource(R.mipmap.ic_push);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
@@ -76,19 +66,35 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Close Login Screen
                         finish();
-                    } else {
-                        card.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle(R.string.error)
+                            .setMessage(R.string.loginFail)
+                            .setPositiveButton(R.string.btnRetry, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    clickable = true;
+                                    dialog.cancel();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 }
             }
         });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
 
-        // Retry button click event
-        btnRetry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                card.setVisibility(View.GONE);
-                clickable = true;
-                inputPassword.setText("");
+                if (clickable) {
+                    Intent dashboard = new Intent(getApplicationContext(), RegisterActivity.class);
+
+                    // Close all views before launching Dashboard
+                    dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(dashboard);
+
+                    // Close Login Screen
+                    finish();
+                }
             }
         });
     }

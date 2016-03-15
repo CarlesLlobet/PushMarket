@@ -28,24 +28,13 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:id="@+id/imageView"
+                android:layout_marginBottom="50dp"
+                android:src="@drawable/pushmarket"
                 android:padding="10dp"
                 android:layout_marginTop="30dp"
                 android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="SwissKnife"
-                android:textStyle="bold"
-                android:layout_marginBottom="40dp"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/textView3"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textColor="@android:color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,34 +96,15 @@
                 android:layout_marginTop="25dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnRegister"
+                android:textAllCaps="false"
+                android:id="@+id/btnRegister"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </ScrollView>
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/cardLogin"
-            android:layout_width="250dp"
-            android:layout_height="280dp"
-            card_view:cardCornerRadius="4dp"
-            android:elevation="10dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_marginBottom="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="false"
-                        android:text="@string/btnRetry"
-                        android:id="@+id/btnRetry"
-                        android:layout_gravity="bottom|center_vertical" />
-                </LinearLayout>
-        </android.support.v7.widget.CardView>
 </RelativeLayout>
