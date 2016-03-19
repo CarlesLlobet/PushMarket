@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/list"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -27,12 +29,46 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white" />
 
-    <Button
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:id="@+id/afegirProducte"
-        android:layout_margin="25dp"
-        android:background="@mipmap/ic_cart_plus"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_gravity="bottom|end"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_marginRight="25dp"
+        android:visibility="invisible"
+        app:backgroundTint="@color/colorAccent2"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:src="@drawable/ic_barcode_scan_white_18dp" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="95dp"
+        android:visibility="invisible"
+        android:layout_gravity="bottom|end"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:elevation="6dp"
+        app:backgroundTint="@color/colorAccent2"
+        app:pressedTranslationZ="12dp"
+        android:src="@drawable/ic_format_list_bulleted_white_18dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:clickable="true"
+        android:src="@drawable/ic_cart_plus_white_18dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:backgroundTint="@color/colorAccent"
+        app:elevation="9dp"
+        app:pressedTranslationZ="15dp"
+        app:layout_anchorGravity="bottom|right|end"/>
 </RelativeLayout>

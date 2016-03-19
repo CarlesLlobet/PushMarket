@@ -19,13 +19,13 @@ public class UserFunctions2 {
     
     //private static String loginURL = "http://192.168.69.18/servei_web";
     //private static String registerURL = "http://192.168.69.18/servei_web";
-    private static String loginURL = "http://carlesllobet.xyz/webservice/index.php";
-	private static String registerURL = "http://carlesllobet.xyz/webservice/index.php";
-	private static String despertarURL = "http://carlesllobet.xyz/webservice/index.php";
-	private static String antesComerURL = "http://carlesllobet.xyz/webservice/index.php";
-	private static String despuesComerURL = "http://carlesllobet.xyz/webservice/index.php";
-    private static String sosURL = "http://carlesllobet.xyz/webservice/index.php";
-    private static String testURL = "http://carlesllobet.xyz/webservice/index.php";
+    private static String loginURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
+	private static String registerURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
+	private static String despertarURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
+	private static String antesComerURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
+	private static String despuesComerURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
+    private static String sosURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
+    private static String testURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
      
     private static String login_tag = "login";
     private static String register_tag = "register";
