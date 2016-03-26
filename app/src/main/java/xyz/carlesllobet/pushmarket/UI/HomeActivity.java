@@ -1,7 +1,10 @@
 package xyz.carlesllobet.pushmarket.UI;
 
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.IsoDep;
@@ -10,6 +13,7 @@ import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.Domain.NFC.Util.NFCHammer;
 import xyz.carlesllobet.pushmarket.R;
 
 /**
@@ -34,6 +39,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
 
     NfcAdapter mAdapter;
     PendingIntent mPendingIntent;
+    IntentFilter writeTagFilters[];
+    ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +108,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
         fabOpen = false;
 
         //Reescoltar NFC
-        mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
+        if (mAdapter != null) {
+            if (!mAdapter.isEnabled()) {
+                Log.d("NFC", "Your NFC is not enabled");
+                return;
+            }
+            mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
+        }
     }
 
     @Override
@@ -113,8 +126,27 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
     }
 
     @Override
-    protected void onNewIntent(Intent intent){
-        getTagInfo(intent);
+    protected void onNewIntent(final Intent intent) {
+        showProgress(true);
+        super.onNewIntent(intent);
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                setIntent(intent);
+                resolveIntent(intent);
+            }
+        }, 0);
+
+    }
+
+    private void resolveIntent(Intent intent) {
+        String action = intent.getAction();
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
+                || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
+                || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
+            getTagInfo(intent);
+        }
     }
 
     private void getTagInfo(Intent intent) {
@@ -122,41 +154,96 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
         String[] techList = tag.getTechList();
         for (int i = 0; i < techList.length; i++) {
             if (techList[i].equals(MifareClassic.class.getName())) {
-
                 MifareClassic mifareClassicTag = MifareClassic.get(tag);
                 switch (mifareClassicTag.getType()) {
                     case MifareClassic.TYPE_CLASSIC:
-                        //Type Clssic
+                        MifareClassic mfc = MifareClassic.get(tag);
+                        // resolveIntentClassic(mfc);
+                        boolean result = NFCHammer.ReadClassic1kValue(this, mfc);
+                        if(result){
+                            showProgress(false);
+                            //TRACTAR RESULT
+                        }else{
+                            showProgress(false);
+                            Log.d("NFC", "Tap The card again!!!");
+                            //Toast.makeText(this, "Tap The card again!!!", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case MifareClassic.TYPE_PLUS:
-                        //Type Plus
+                        Log.d("NFC", "This Tag is Mifare Classic Plus. We will Add this type in next version");
                         break;
                     case MifareClassic.TYPE_PRO:
-                        //Type Pro
+                        Log.d("NFC", "This Tag is Mifare Classic Pro. We will Add this type in next version");
                         break;
                 }
             } else if (techList[i].equals(MifareUltralight.class.getName())) {
-                //For Mifare Ultralight
                 MifareUltralight mifareUlTag = MifareUltralight.get(tag);
                 switch (mifareUlTag.getType()) {
                     case MifareUltralight.TYPE_ULTRALIGHT:
+                        boolean result1 = NFCHammer.readUltraLightValue(this, tag);
+                        if(result1){
+                            showProgress(false);
+                            //TRACTAR RESULT1.
+                        }
+                        else{
+                            showProgress(false);
+                            Log.d("NFC", "Tap The card again!!!");
+                        }
                         break;
                     case MifareUltralight.TYPE_ULTRALIGHT_C:
 
+
+                        boolean result = NFCHammer.ReadULCValue(this, tag);
+                        if(result){
+                            showProgress(false);
+                            //TRACTAR RESULT
+                        }
+                        else{
+                            showProgress(false);
+                            Log.d("NFC","Tap The card again!!!");
+                        }
                         break;
                 }
             } else if (techList[i].equals(IsoDep.class.getName())) {
                 // info[1] = "IsoDep";
+                @SuppressWarnings("unused")
                 IsoDep isoDepTag = IsoDep.get(tag);
-
+			/*	CommonTask
+				.createToast(
+						"This Tag is IsoDep tag. We will Add this type in next version",
+						this, Color.GREEN);*/
+                // info[0] += "IsoDep \n";
             } else if (techList[i].equals(Ndef.class.getName())) {
                 Ndef.get(tag);
-
+				/*CommonTask
+				.createToast(
+						"This Tag is NDEF Tag. We will Add this type in next version",
+						this, Color.GREEN);*/
             } else if (techList[i].equals(NdefFormatable.class.getName())) {
-
+                @SuppressWarnings("unused")
                 NdefFormatable ndefFormatableTag = NdefFormatable.get(tag);
-
+			/*	CommonTask
+				.createToast(
+						"This Tag is NDEF formatable Tag. We will Add this type in next version",
+						this, Color.GREEN);*/
             }
+        }
+    }
+
+    private void showProgress(final boolean show) {
+        if (show){
+            pDialog = new ProgressDialog(HomeActivity.this);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.setMessage("Procesando...");
+            pDialog.setCancelable(true);
+            pDialog.setMax(100);
+
+            pDialog.setProgress(0);
+            pDialog.show();
+        }
+
+        else {
+            pDialog.dismiss();
         }
     }
 
