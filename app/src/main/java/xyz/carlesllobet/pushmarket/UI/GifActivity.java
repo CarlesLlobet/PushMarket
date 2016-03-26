@@ -1,6 +1,5 @@
 package xyz.carlesllobet.pushmarket.UI;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,9 +25,7 @@ public class GifActivity extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                    Intent intent = new Intent(getApplicationContext(), xyz.carlesllobet.pushmarket.UI.HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(GifActivity.this).toBundle());
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             }
         }, 1350);
     }
