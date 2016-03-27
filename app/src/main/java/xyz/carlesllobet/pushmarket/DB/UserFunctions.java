@@ -5,26 +5,44 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import xyz.carlesllobet.pushmarket.Domain.Product;
 
 public class UserFunctions {
 
+    private JSONParser jsonParser;
 
-    /**
-     * Function to know if user has admin permissions
-     */
+    // Testing in localhost using wamp or xampp
+    // use http://10.0.2.2/ to connect to your localhost ie http://localhost/
 
-    public boolean isUserAdmin(Context context) { //S'ha de fer amb SharedPreferences
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getString("userName", "").equals("admin")) return true;
-        return false;
+    //private static String loginURL = "http://192.168.69.18/servei_web";
+    //private static String registerURL = "http://192.168.69.18/servei_web";
+    private static String webserviceURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
+
+    private static String login_tag = "login";
+    private static String register_tag = "register";
+    private static String products_tag = "products";
+
+    // constructor
+    public UserFunctions(){
+        jsonParser = new JSONParser();
     }
 
-    /**
-     * Function to know if user has admin permissions
-     */
+    public JSONObject updateAllProducts(){
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", products_tag));
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(webserviceURL, params);
+
+        return json;
+    }
 
     public boolean loginUser(Context context, String user, String password) {
         DatabaseHandler db = new DatabaseHandler(context);
@@ -39,6 +57,12 @@ public class UserFunctions {
             editor.putString("userName", user);
             editor.commit();
         }
+        return res;
+    }
+
+    public String getName(Context context, String username) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        String res = db.getName(username);
         return res;
     }
 
@@ -87,42 +111,6 @@ public class UserFunctions {
         return res;
     }
 
-    public boolean getNotif(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getNotif(username);
-        return res.equals("true");
-    }
-
-    public boolean getTuto(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getTuto(username);
-        return res.equals("true");
-    }
-
-    public boolean getToast(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getToast(username);
-        return res.equals("true");
-    }
-
-    public String getLastNotif(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getLastNotif(username);
-        return res;
-    }
-
-    public Integer getPunt(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        Integer res = db.getPunt(username);
-        return res;
-    }
-
-    public Integer getPunt2(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        Integer res = db.getPunt2(username);
-        return res;
-    }
-
     public boolean registerUser(Context context, String nombre, String username, String password, String address, boolean tutorial) {
         DatabaseHandler db = new DatabaseHandler(context);
         String tuto = "true";
@@ -131,44 +119,10 @@ public class UserFunctions {
         return res;
     }
 
-    public boolean setNotif(Context context, String username, boolean notif) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        boolean res = db.setNotif(username, notif);
-        return res;
-    }
-
     public boolean setLang(Context context, String username, String lang) {
         DatabaseHandler db = new DatabaseHandler(context);
         boolean res = db.setLang(username, lang);
         return res;
-    }
-
-    public boolean setTuto(Context context, String username, boolean tuto) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        boolean res = db.setTuto(username, tuto);
-        return res;
-    }
-
-    public boolean setToast(Context context, String username, boolean toast) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        boolean res = db.setToast(username, toast);
-        return res;
-    }
-
-    public boolean setLastNotif(Context context, String username, String lnotif) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        boolean res = db.setLastNotif(username, lnotif);
-        return res;
-    }
-
-    public void setPunt(Context context, String username, int punt) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        db.setPuntuacion(punt, username);
-    }
-
-    public void setPunt2(Context context, String username, int punt) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        db.setPuntuacion2(punt, username);
     }
 
     public boolean setFoto(Context context, String username, Uri image) {
@@ -183,11 +137,6 @@ public class UserFunctions {
         return res;
     }
 
-    public ArrayList<Product> getAllPunts(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        ArrayList<Product> llista = db.getAllPuncts();
-        return llista;
-    }
     /**
      * Function to logout user
      * Reset Database

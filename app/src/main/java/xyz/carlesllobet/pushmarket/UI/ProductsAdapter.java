@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
 import xyz.carlesllobet.pushmarket.Domain.Product;
@@ -22,10 +23,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
 
     private Context context;
     UserFunctions userFunctions = new UserFunctions();
-    ArrayList<Product> persones;
+    ArrayList<HashMap<String, String>> products;
 
     public ProductsAdapter(Context con) {
-        persones = userFunctions.getAllPunts(con);
+        products = userFunctions.getAllProducts(con);
     }
 
     @Override
@@ -38,13 +39,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
 
     @Override
     public void onBindViewHolder(ProductsAdapter.AdapterViewHolder adapterViewholder, int position) {
-        adapterViewholder.name.setText(persones.get(position).getName());
-        adapterViewholder.punt.setText(persones.get(position).getPunt().toString());
-        adapterViewholder.foto.setImageURI(persones.get(position).getFoto());
+        adapterViewholder.name.setText(products.get(position).getName());
+        adapterViewholder.punt.setText(products.get(position).getPunt().toString());
+        adapterViewholder.foto.setImageURI(products.get(position).getFoto());
     }
 
     @Override
-    public int getItemCount(){ return persones.size(); }
+    public int getItemCount(){ return products.size(); }
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder {
 

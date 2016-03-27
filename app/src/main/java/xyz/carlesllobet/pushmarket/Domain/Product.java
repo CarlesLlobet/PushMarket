@@ -8,9 +8,12 @@ import android.net.Uri;
 public class Product {
 
     //private variables
-    String userName;
-    Integer punt;
-    Uri foto;
+    Integer id;
+    String name;
+    String description;
+    Integer sector;
+    Integer preu;
+    Uri pic;
 
     // Empty constructor
     public Product() {
@@ -18,39 +21,66 @@ public class Product {
     }
 
     // constructor
-    public Product(String name, Integer punt, Uri pic) {
-        this.userName = name;
-        this.punt = punt;
-        this.foto = pic;
+    public Product(Integer id, String name, String description, Integer sector, Integer preu, Uri pic) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.sector = sector;
+        this.preu = preu;
+        this.pic = pic;
     }
+
+    public Integer getId() {return this.id;}
+
+    public void setId(Integer id) {this.id = id;}
 
     // getting name
     public String getName() {
-        return this.userName;
+        return this.name;
     }
 
     // setting name
     public void setName(String name) {
-        this.userName = name;
+        this.name = name;
+    }
+
+    // getting name
+    public String getDescription() {
+        return this.description;
+    }
+
+    // setting name
+    public void setDescription(String desc) {
+        this.description = desc;
+    }
+
+    // getting punctuation
+    public Integer getSector() {
+        return this.sector;
+    }
+
+    // setting punctuation
+    public void setSector(Integer sect) {
+        this.sector = sect;
+    }
+
+    // getting punctuation
+    public Integer getPreu() {
+        return this.preu;
+    }
+
+    // setting punctuation
+    public void setPreu(Integer price) {
+        this.preu = price;
     }
 
     //getting foto
     public Uri getFoto() {
-        return this.foto;
+        return this.pic;
     }
 
     //getting foto
     public void setFoto(Uri pic) {
-        this.foto = pic;
-    }
-
-    // getting punctuation
-    public Integer getPunt() {
-        return this.punt;
-    }
-
-    // setting punctuation
-    public void setPunt(Integer punt) {
-        this.punt = punt;
+        this.pic = pic;
     }
 }
