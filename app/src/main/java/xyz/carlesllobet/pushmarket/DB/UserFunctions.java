@@ -111,9 +111,9 @@ public class UserFunctions {
         return res;
     }
 
-    public Integer getAge(Context context) {
+    public String getAge(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        Integer res = preferences.getInt("edad", 0);
+        String res = preferences.getString("edad", "");
         return res;
     }
 
@@ -160,7 +160,7 @@ public class UserFunctions {
      */
     public boolean isUserLoggedIn(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.contains("userName")) return true;
+        if (preferences.contains("email")) return true;
         return false;
     }
 
@@ -172,7 +172,7 @@ public class UserFunctions {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.remove("userName");
+        editor.remove("email");
         editor.commit();
     }
 

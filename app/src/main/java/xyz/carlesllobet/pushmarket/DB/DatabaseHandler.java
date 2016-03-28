@@ -92,14 +92,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<Product> getAllProducts(){
         ArrayList<Product> products = new ArrayList<Product>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_PRODUCTS;
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUCTS;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
         cursor.moveToFirst();
         Integer i = 0;
-        if(cursor.getCount() > 0){
+        while(cursor.getCount() > 0){
             Product aux = new Product(cursor.getInt(0),cursor.getString(1),cursor.getString(2),Uri.parse(cursor.getString(3)),
                     cursor.getInt(4),cursor.getInt(5));
             products.add(i, aux);

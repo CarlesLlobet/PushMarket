@@ -50,7 +50,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     private String sex;
     private String country;
     private String city;
-    private Integer age;
+    private String age;
 
     private TextView nombre;
     private TextView apellido;
@@ -106,7 +106,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         nombre.setText(name);
         apellido.setText(lastName);
         correo.setText(email);
-        edad.setText(age.toString());
+        edad.setText(age);
         pais.setText(country);
         ciudad.setText(city);
 

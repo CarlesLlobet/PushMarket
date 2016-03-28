@@ -68,9 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Log.d("login", "boto clicat");
                 if (clickable) {
-                    Log.d("login", "boto clicable");
                     clickable = false;
                     email = inputEmail.getText().toString();
                     password = inputPassword.getText().toString();
@@ -86,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("name", "Admin");
                         editor.putString("lastName", "Administrator");
                         editor.putString("edad", "21");
-                        editor.putString("sexe", "Undefined");
+                        editor.putString("sexe", "Male");
                         editor.putString("pais", "Spain");
                         editor.putString("ciutat", "Barcelona");
                         editor.commit();
@@ -112,14 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
             public void onClick(View view) {
                 if (clickable) {
-                    Intent dashboard = new Intent(getApplicationContext(), RegisterActivity.class);
-
-                    // Close all views before launching Dashboard
-                    dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(dashboard);
-
-                    // Close Login Screen
-                    finish();
+                    startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
                 }
             }
         });
