@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -33,11 +34,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         super.setContentView(R.layout.activity_base);
 
         userFunctions = new UserFunctions();
-        Locale locale = new Locale(userFunctions.getLang(getApplicationContext()));
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getApplicationContext().getResources().updateConfiguration(config, null);
 
         setView();
     }

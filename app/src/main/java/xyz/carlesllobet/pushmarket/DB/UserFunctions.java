@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -90,6 +91,7 @@ public class UserFunctions {
     public String getLang (Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String res = preferences.getString("language", "");
+        Log.d("recuperat", res);
         return res;
     }
 
@@ -139,6 +141,7 @@ public class UserFunctions {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("language", lang);
+        Log.d("guardat", lang);
     }
 
     public void setPass (Context context, String password){

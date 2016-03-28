@@ -1,27 +1,12 @@
 package xyz.carlesllobet.pushmarket.UI;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -34,13 +19,8 @@ import xyz.carlesllobet.pushmarket.R;
  * Created by JEDI on 17/08/2015.
  */
 public class SettingsActivity extends BaseActivity implements View.OnClickListener {
-    private Button btnRegister;
     private Button btnChangePassword;
     private Button btnLogout;
-
-    LocationManager lm;
-
-    private ImageButton pic;
 
     private UserFunctions userFunctions;
 
