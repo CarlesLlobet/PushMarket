@@ -2,7 +2,6 @@ package xyz.carlesllobet.pushmarket.UI;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,9 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 
 import java.util.Locale;
 
@@ -28,9 +25,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private DrawerLayout drawer;
 
-    private Uri foto;
-    private ImageButton picButton;
-
     private UserFunctions userFunctions;
 
     @Override
@@ -39,7 +33,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         super.setContentView(R.layout.activity_base);
 
         userFunctions = new UserFunctions();
-        Locale locale = new Locale(userFunctions.getLang(getApplicationContext(), userFunctions.getUserName(getApplicationContext())));
+        Locale locale = new Locale(userFunctions.getLang(getApplicationContext()));
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
@@ -60,9 +54,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        UserFunctions userFunctions = new UserFunctions();
-        foto = userFunctions.getFoto(getApplicationContext(), userFunctions.getUserName(getApplicationContext()));
     }
 
 

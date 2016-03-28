@@ -16,11 +16,10 @@ import xyz.carlesllobet.pushmarket.R;
 /**
  * Created by CarlesLlobet on 10/03/2016.
  */
-public class PasswordActivity extends xyz.carlesllobet.pushmarket.UI.BaseActivity implements View.OnClickListener  {
+public class PasswordActivity extends xyz.carlesllobet.pushmarket.UI.BaseActivity implements View.OnClickListener {
     private Button btnChange;
 
     private EditText oldPass;
-    private EditText userName;
     private EditText newPass;
     private EditText repeated;
 
@@ -33,15 +32,8 @@ public class PasswordActivity extends xyz.carlesllobet.pushmarket.UI.BaseActivit
         super.onCreate(savedInstanceState);
 
         userFunctions = new UserFunctions();
-
-        if(userFunctions.isUserAdmin(getApplicationContext())) {
-            setContentView(R.layout.activity_password_admin);
-            userName = (EditText) findViewById(R.id.userName);
-        }
-        else{
-            setContentView(R.layout.activity_password);
-            oldPass = (EditText) findViewById(R.id.oldPassword);
-        }
+        setContentView(R.layout.activity_password);
+        oldPass = (EditText) findViewById(R.id.oldPassword);
 
         newPass = (EditText) findViewById(R.id.newPassword);
         repeated = (EditText) findViewById(R.id.newPassword2);
@@ -64,27 +56,21 @@ public class PasswordActivity extends xyz.carlesllobet.pushmarket.UI.BaseActivit
                 String rP = repeated.getText().toString();
                 if (nP.equals(rP)) {
                     userFunctions = new UserFunctions();
-                    if (userFunctions.isUserAdmin(getApplicationContext())) {
-                        String un = userName.getText().toString();
-                        userFunctions.setPass(getApplicationContext(),un, nP);
+
+                    String oP = oldPass.getText().toString();
+                    if (userFunctions.getPass(getApplicationContext()).equals(oP)) {
+                        userFunctions.setPass(getApplicationContext(), nP);
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.notifPass), Toast.LENGTH_LONG).show();
-                    } else {
-                        String oP = oldPass.getText().toString();
-                        String un = userFunctions.getUserName(getApplicationContext());
-                        if(userFunctions.getPass(getApplicationContext(),un).equals(oP)){
-                            userFunctions.setPass(getApplicationContext(),un,nP);
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.notifPass), Toast.LENGTH_LONG).show();
-                        }
-                        else error.setText(R.string.error1);
-                    }
+                    } else error.setText(R.string.error1);
+
                     Intent intent = new Intent(PasswordActivity.this, SettingsActivity.class);
                     startActivity(intent);
                     //tancar menu
-                }
-                else error.setText(R.string.error2);
+                } else error.setText(R.string.error2);
                 break;
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -94,7 +80,7 @@ public class PasswordActivity extends xyz.carlesllobet.pushmarket.UI.BaseActivit
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 break;

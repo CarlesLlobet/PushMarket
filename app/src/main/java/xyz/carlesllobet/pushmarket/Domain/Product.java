@@ -21,7 +21,7 @@ public class Product {
     }
 
     // constructor
-    public Product(Integer id, String name, String description, Integer sector, Integer preu, Uri pic) {
+    public Product(Integer id, String name, String description, Uri pic, Integer sector, Integer preu) {
         this.id = id;
         this.name = name;
         this.description = description;

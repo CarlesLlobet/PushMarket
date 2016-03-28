@@ -33,39 +33,39 @@
             android:inputType="textPersonName"
             android:textColor="@android:color/white" />
 
+        <!--  Name Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dip"
+            android:text="@string/lastName"
+            android:textColor="@android:color/white" />
+        <!--  Name TextField -->
+        <EditText
+            android:id="@+id/registerLastName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/white" />
+
         <!--  Address Label -->
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/address"
+            android:text="@string/email"
             android:textColor="@android:color/white" />
         <!--  User TextField -->
         <EditText
-            android:id="@+id/registerAddress"
+            android:id="@+id/registerEmail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textAutoComplete"
-            android:textColor="@android:color/white" />
-         
-        <!--  User Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/user"
-            android:textColor="@android:color/white" />
-        <!--  User TextField -->
-        <EditText
-            android:id="@+id/registerUserName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textAutoComplete"
+            android:inputType="textEmailAddress"
             android:textColor="@android:color/white" />
          
         <!--  Password Label -->
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
             android:text="@string/passwd"
             android:textColor="@android:color/white" />
         <!--  Password TextField -->
@@ -73,10 +73,87 @@
             android:id="@+id/registerPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="textVisiblePassword"
+            android:textColor="@android:color/white" />
+         
+        <!--  Age Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/edad"
+            android:textColor="@android:color/white" />
+        <!--  Age TextField -->
+        <EditText
+            android:id="@+id/registerAge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
             android:textColor="@android:color/white" />
 
-        <!--  Error message -->
+        <!--  Country Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/pais"
+            android:textColor="@android:color/white" />
+        <!--  Country TextField -->
+        <EditText
+            android:id="@+id/registerCountry"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:textColor="@android:color/white" />
+
+        <!--  City Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/ciudad"
+            android:textColor="@android:color/white" />
+        <!--  City TextField -->
+        <EditText
+            android:id="@+id/registerCity"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:textColor="@android:color/white" />
+
+        <!--  Sex Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/sexo"
+            android:textColor="@android:color/white" />
+        <!--  Sex Chooser -->
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/registerSex"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:shadowColor="@color/colorAccent"
+                android:id="@+id/radioMale" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:shadowColor="@color/colorAccent"
+                android:text="@string/female"
+                android:id="@+id/radioFemale" />
+        </RadioGroup>
+
         <TextView android:id="@+id/register_error"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

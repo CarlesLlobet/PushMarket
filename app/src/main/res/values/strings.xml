@@ -9,7 +9,6 @@
     <string name="tituloRegister">Añadir usuario</string>
     <string name="tituloHome">Inicio</string>
     <string name="tituloSettings">Ajustes</string>
-
     <string name="account">Cuenta</string>
     <string name="progress">Procesando...</string>
     <string name="welcome">Bienvenido a</string>
@@ -18,12 +17,13 @@
 
     <string name="error1">"La contraseña actual no es correcta!"</string>
     <string name="error2">"Las contraseñas no coinciden!"</string>
-    <string name="error3">"Datos incorrectos. Prueba con otro username o contraseña"</string>
+    <string name="error3">"Datos incorrectos. Prueba con otro correo"</string>
 
     <!-- Login Fields -->
-    <string name="user">"Usuario:"</string>
+    <string name="name">"Nombre:"</string>
+    <string name="email">Correo electronico:</string>
     <string name="passwd">"Contraseña:"</string>
-    <string name="error">"Error"</string>
+    <string name="error" translatable="false">"Error"</string>
     <string name="loginFail">"El usuario o contraseña introducidos no son correctos"</string>
 
 
@@ -41,7 +41,7 @@
     <string name="btnChange">Cambiar</string>
     <string name="btnAddUser">Añadir usuario</string>
     <string name="btnChangePasswd">Cambiar contraseña</string>
-    <string name="btnRegister">   Registrar-se</string>
+    <string name="btnRegister">   Registrarse</string>
     <string name="btnLogout">   Cerrar sesión</string>
     <string name="btnRetry">   Reintentar</string>
 
@@ -49,14 +49,6 @@
     <string name="action_settings">Ajustes</string>
     <string name="openDrawer">Open Drawer</string>
     <string name="closeDrawer">Cerrar menu</string>
-    <string name="helpHome">
-        Este reproductor de musica te permitirá:\n\n
-
-        <u>-Forward:</u> Lleva el audio al principio otra vez\n
-        <u>-Play/Pausa:</u> Permite pausar la reproducción y retomarla en el punto donde la habias pausado\n
-        <u>-Stop:</u> Detiene el audio y lo lleva al principio\n
-        <u>-Loop:</u> Pone la reproducción en modo "Repetir", por lo que cuando el audio finaliza, vuelve a reproducirse\n
-    </string>
     <string name="helpMenu">Para añadir un elemento a tu lista de la compra, pasa un tag NFC o pulsa el boton</string>
     <string name="helpSettings">
         En ajustes puedes ver toda tu información personal para verificarla.\n
@@ -68,9 +60,18 @@
     <string name="spa">Español</string>
     <string name="cat">Catalan</string>
     <string name="en">Inglés</string>
-    <string name="language">El idioma cambiará al cambiar de pantalla</string>
     <string name="checkBoxText">No volver a mostrar</string>
     <string name="notifRegister">Usuario añadido correctamente!</string>
     <string name="notifPass">Contraseña cambiada correctamente!</string>
     <string name="tituloProducts">Productos</string>
+    <string name="lastName">Apellidos:</string>
+    <string name="edad">Edad:</string>
+    <string name="sexo">Sexo:</string>
+    <string name="pais">Pais:</string>
+    <string name="ciudad">Ciudad:</string>
+    <string name="btnNo" translatable="false">No</string>
+    <string name="btnSi">Si</string>
+    <string name="dialog1">Nueva foto de perfil</string>
+    <string name="male">Masculino</string>
+    <string name="female">Femenino</string>
 </resources>

@@ -7,9 +7,11 @@ import android.preference.PreferenceManager;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import xyz.carlesllobet.pushmarket.Domain.Product;
@@ -28,42 +30,129 @@ public class UserFunctions {
     private static String login_tag = "login";
     private static String register_tag = "register";
     private static String products_tag = "products";
+    private static String password_tag = "password";
+
+    private SharedPreferences preferences;
 
     // constructor
-    public UserFunctions(){
+    public UserFunctions() {
         jsonParser = new JSONParser();
     }
 
-    public JSONObject updateAllProducts(){
+    //USERS
+
+    public JSONObject loginUser(String email, String password) {
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", products_tag));
+        params.add(new BasicNameValuePair("tag", login_tag));
+        params.add(new BasicNameValuePair("email", email));
+        params.add(new BasicNameValuePair("password", password));
+
+        JSONObject json = jsonParser.getJSONFromUrl(webserviceURL, params);
+
+        return json;
+    }
+
+    public JSONObject registerUser(String email, String nombre, String cognoms, String edad, String password,
+                                   String sexe, String pais, String ciutat) {
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", register_tag));
+        params.add(new BasicNameValuePair("nombre", nombre));
+        params.add(new BasicNameValuePair("email", email));
+        params.add(new BasicNameValuePair("cognoms", cognoms));
+        params.add(new BasicNameValuePair("edad", edad));
+        params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("sexe", sexe));
+        params.add(new BasicNameValuePair("pais", pais));
+        params.add(new BasicNameValuePair("ciutat", ciutat));
+
         // getting JSON Object
         JSONObject json = jsonParser.getJSONFromUrl(webserviceURL, params);
 
         return json;
     }
 
-    public boolean loginUser(Context context, String user, String password) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        boolean res;
-        //if ((!user.equals("admin"))||(!password.equals("4dm1n")))
-        res = db.SignIn(user, password);
-        //else res = true;
-        if (res) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            SharedPreferences.Editor editor = preferences.edit();
 
-            editor.putString("userName", user);
-            editor.commit();
-        }
+
+    public String getName (Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("name", "");
         return res;
     }
 
-    public String getName(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getName(username);
+    public String getPass (Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("password", "");
         return res;
+    }
+
+    public String getLang (Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("language", "");
+        return res;
+    }
+
+    public String getEmail(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("email", "");
+        return res;
+    }
+
+    public String getPassword(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("password", "");
+        return res;
+    }
+
+    public String getLastName(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("lastName", "");
+        return res;
+    }
+
+    public Integer getAge(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Integer res = preferences.getInt("edad", 0);
+        return res;
+    }
+
+    public String getSex(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("sexe", "");
+        return res;
+    }
+
+    public String getCountry(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("pais", "");
+        return res;
+    }
+
+    public String getCity(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String res = preferences.getString("ciutat", "");
+        return res;
+    }
+
+    public void setLang(Context context, String lang) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("language", lang);
+    }
+
+    public void setPass (Context context, String password){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("password", password);
+
+        //SET PASSWORD TO WEBSERVICE DB
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", password_tag));
+        params.add(new BasicNameValuePair("password", password));
+
+        // getting JSON Object
+        jsonParser.getJSONFromUrl(webserviceURL, params);
     }
 
     /**
@@ -73,68 +162,6 @@ public class UserFunctions {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (preferences.contains("userName")) return true;
         return false;
-    }
-
-    public String getUserName (Context context){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String res = preferences.getString("userName", "");
-        return res;
-    }
-
-    public String getName(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getName(username);
-        return res;
-    }
-
-    public String getLang(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getLang(username);
-        return res;
-    }
-
-    public String getPass(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getPass(username);
-        return res;
-    }
-
-    public String getAddress(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getAddress(username);
-        return res;
-    }
-
-    public Uri getFoto(Context context, String username) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        Uri res = db.getFoto(username);
-        return res;
-    }
-
-    public boolean registerUser(Context context, String nombre, String username, String password, String address, boolean tutorial) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String tuto = "true";
-        if (!tutorial) tuto = "false";
-        boolean res = db.addUser(nombre, username, password, address, tuto);
-        return res;
-    }
-
-    public boolean setLang(Context context, String username, String lang) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        boolean res = db.setLang(username, lang);
-        return res;
-    }
-
-    public boolean setFoto(Context context, String username, Uri image) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        boolean res = db.setFoto(username, image);
-        return res;
-    }
-
-    public boolean setPass(Context context, String username, String newP) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        boolean res = db.setPass(username, newP);
-        return res;
     }
 
     /**
@@ -147,5 +174,32 @@ public class UserFunctions {
 
         editor.remove("userName");
         editor.commit();
+    }
+
+
+    //PRODUCTS
+
+    public void updateAllProducts(Context context) {
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", products_tag));
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(webserviceURL, params);
+
+        DatabaseHandler db = new DatabaseHandler(context);
+        db.resetTable();
+        //Insert all products of the json
+    }
+
+    public ArrayList<Product> getAllProducts(Context context) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        ArrayList<Product> products = db.getAllProducts();
+        return products;
+    }
+
+    public String getProductName(Context context, Integer id) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        String res = db.getProductName(id);
+        return res;
     }
 }

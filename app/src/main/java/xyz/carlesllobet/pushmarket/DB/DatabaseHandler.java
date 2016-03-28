@@ -65,7 +65,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     	SQLiteDatabase db = this.getWritableDatabase();
 
         //Si existeix, retorna fals, i no es pot afegir
-        if (CheckExist(id)) return false;
+        if (CheckProductExist(id)) return false;
 
         if ((id.equals("")) || (nombre.equals("")) || (preu.toString().equals(""))) return false;
 
@@ -100,7 +100,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         Integer i = 0;
         if(cursor.getCount() > 0){
-            Product aux = new Product(cursor.getString(0));
+            Product aux = new Product(cursor.getInt(0),cursor.getString(1),cursor.getString(2),Uri.parse(cursor.getString(3)),
+                    cursor.getInt(4),cursor.getInt(5));
             products.add(i, aux);
             ++i;
         }
@@ -110,80 +111,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return products;
     }
 
-    public Boolean CheckExist(Integer id) {
+    public Boolean CheckProductExist(Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {KEY_ID};
-        String[] where = {id};
-        Cursor c = db.query(
-                TABLE_PRODUCTS,
-                columns,
-                KEY_ID+"=?",
-                where,
-                null,
-                null,
-                null
-        );
+        String selectQuery="SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + KEY_ID + " = " + id;
+        Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             return true;
         }
         return false;
     }
 
-    public String getName (String user) {
+    public String getProductName (Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {KEY_NOMBRE};
-        String[] where = {user};
-        Cursor c = db.query(
-                TABLE_PRODUCTS,
-                columns,
-                KEY_ID + " = ?",
-                where,
-                null,
-                null,
-                null
-        );
+        String selectQuery="SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + KEY_ID + " = " + id;
+        Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             db.close();
-            return (c.getString(0));
+            return (c.getString(1));
         }
         db.close();
         return "";
     }
 
-
-    public boolean setFoto (Integer id, Uri path) {
-        String stringUri = path.toString();
-        ContentValues values = new ContentValues();
-        values.put(KEY_FOTO, stringUri);
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.update(
-                TABLE_PRODUCTS,
-                values,
-                KEY_ID + " = '" + id + "'",
-                null
-        );
-        db.close();
-        return CheckExist(id);
-    }
-
-
     public Uri getFoto (Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {KEY_FOTO};
-        Integer[] where = {id};
-        Cursor c = db.query(
-                TABLE_PRODUCTS,
-                columns,
-                KEY_ID + " = ?",
-                where,
-                null,
-                null,
-                null
-        );
+        String selectQuery="SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + KEY_ID + " = " + id;
+        Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             db.close();
-            if (c.getString(0).equals("")) return null;
-            else return Uri.parse(c.getString(0));
+            return (Uri.parse(c.getString(3)));
         }
         db.close();
         return null;
@@ -193,7 +149,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Re crate database
      * Delete all tables and create them again
      * */
-    public void resetTables() {
+    public void resetTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         // Delete All Rows
         db.delete(TABLE_PRODUCTS, null, null);

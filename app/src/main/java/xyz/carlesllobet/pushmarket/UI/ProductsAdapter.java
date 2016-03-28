@@ -23,7 +23,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
 
     private Context context;
     UserFunctions userFunctions = new UserFunctions();
-    ArrayList<HashMap<String, String>> products;
+    ArrayList<Product> products;
 
     public ProductsAdapter(Context con) {
         products = userFunctions.getAllProducts(con);
@@ -40,7 +40,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
     @Override
     public void onBindViewHolder(ProductsAdapter.AdapterViewHolder adapterViewholder, int position) {
         adapterViewholder.name.setText(products.get(position).getName());
-        adapterViewholder.punt.setText(products.get(position).getPunt().toString());
+        adapterViewholder.price.setText(products.get(position).getPreu().toString());
+        adapterViewholder.desc.setText(products.get(position).getDescription());
         adapterViewholder.foto.setImageURI(products.get(position).getFoto());
     }
 
@@ -51,14 +52,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
 
         public ImageView foto;
         public TextView name;
-        public TextView punt;
+        public TextView desc;
+        public TextView price;
         public View v;
         public AdapterViewHolder(View itemView) {
             super(itemView);
             this.v = itemView;
             this.foto = (ImageView) itemView.findViewById(R.id.foto);
             this.name = (TextView) itemView.findViewById(R.id.name);
-            this.punt = (TextView) itemView.findViewById(R.id.punt);
+            this.desc = (TextView) itemView.findViewById(R.id.description);
+            this.price = (TextView) itemView.findViewById(R.id.preu);
         }
     }
 }
