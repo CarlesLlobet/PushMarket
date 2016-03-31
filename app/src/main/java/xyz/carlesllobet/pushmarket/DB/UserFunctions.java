@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import xyz.carlesllobet.pushmarket.Domain.Product;
+import xyz.carlesllobet.pushmarket.R;
 
 public class UserFunctions {
 
@@ -210,5 +211,30 @@ public class UserFunctions {
         DatabaseHandler db = new DatabaseHandler(context);
         String res = db.getProductName(id);
         return res;
+    }
+
+    public boolean addProduct(Context context, Integer id, String nom, String descripcio, Integer preu, Integer sector, Uri foto){
+        DatabaseHandler db = new DatabaseHandler(context);
+        boolean res = db.addProduct(id,nom,descripcio,sector,preu,foto);
+        return res;
+    }
+
+    public Boolean checkTestValues(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (preferences.getString("TestValues","notExists").equals("notExists")) {
+            //Fiquem valors inicials
+            Uri fotoAux = Uri.parse("android.resource://xyz.carlesllobet.livesoccer/" + R.drawable.cart_outline);
+            addProduct(context,9283479, "Leche ATO", "Contiene lactosa", 3, 2, fotoAux);
+            addProduct(context, 234289347, "Chupa Chup Max", "Contiene gluten", 2, 1, fotoAux);
+            fotoAux = Uri.parse("android.resource://xyz.carlesllobet.livesoccer/" + R.drawable.cart_plus);
+            addProduct(context, 32489324, "GVine ginebra", "30% alcohol", 30, 2, fotoAux);
+            addProduct(context,23409234, "Puta app", "Que sida xd", 100, 69, fotoAux);
+
+            //Guardem que s'han posat els valors inicials
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("TestValues", "inserted");
+            editor.commit();
+            return false;
+        } else return true;
     }
 }

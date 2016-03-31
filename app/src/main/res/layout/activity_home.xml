@@ -8,6 +8,11 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!--
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"></include>
+    -->
     <ImageView
         android:id="@+id/textView9"
         android:layout_width="275dp"
@@ -28,6 +33,14 @@
             android:text="@string/helpMenu"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_below="@id/tool_bar"
+        android:scrollbars="vertical" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab2"

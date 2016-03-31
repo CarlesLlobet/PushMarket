@@ -12,37 +12,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.Domain.Llista;
 import xyz.carlesllobet.pushmarket.Domain.Product;
 import xyz.carlesllobet.pushmarket.R;
 
 
-public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.AdapterViewHolder>{
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.AdapterViewHolder>{
 
-    private Context context;
-    UserFunctions userFunctions = new UserFunctions();
     ArrayList<Product> products;
+    ArrayList<Integer> cants;
 
-    public ProductsAdapter(Context con) {
-        products = userFunctions.getAllProducts(con);
+    public HomeAdapter() {
+        products = Llista.getInstance().getAllProducts();
+        cants = Llista.getInstance().getAllCants();
     }
 
     @Override
-    public ProductsAdapter.AdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public HomeAdapter.AdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
-        View view = inflater.inflate(R.layout.product_row, viewGroup, false);
+        View view = inflater.inflate(R.layout.list_row, viewGroup, false);
         return new AdapterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ProductsAdapter.AdapterViewHolder adapterViewholder, int position) {
+    public void onBindViewHolder(HomeAdapter.AdapterViewHolder adapterViewholder, int position) {
         adapterViewholder.name.setText(products.get(position).getName());
         adapterViewholder.price.setText(products.get(position).getPreu().toString());
         adapterViewholder.desc.setText(products.get(position).getDescription());
         adapterViewholder.foto.setImageURI(products.get(position).getFoto());
+        adapterViewholder.cant.setText(cants.get(position).toString());
     }
 
     @Override
@@ -56,6 +57,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
         public TextView name;
         public TextView desc;
         public TextView price;
+        public TextView cant;
         public View v;
         public AdapterViewHolder(View itemView) {
             super(itemView);
@@ -64,6 +66,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Adapte
             this.name = (TextView) itemView.findViewById(R.id.name);
             this.desc = (TextView) itemView.findViewById(R.id.description);
             this.price = (TextView) itemView.findViewById(R.id.preu);
+            this.cant = (TextView) itemView.findViewById(R.id.cantitat);
         }
     }
 }

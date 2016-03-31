@@ -15,13 +15,17 @@ import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.Domain.Llista;
 import xyz.carlesllobet.pushmarket.Domain.NFC.Util.NFCHammer;
+import xyz.carlesllobet.pushmarket.Domain.RecyclerItemClickListener;
 import xyz.carlesllobet.pushmarket.R;
 
 /**
@@ -31,8 +35,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
 
     private UserFunctions uf;
 
-    private Toolbar tb;
-
     private FloatingActionButton afegir,llista,barcode;
 
     private Boolean fabOpen;
@@ -41,6 +43,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
     PendingIntent mPendingIntent;
     IntentFilter writeTagFilters[];
     ProgressDialog pDialog;
+
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +62,32 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
         barcode.setVisibility(View.INVISIBLE);
         fabOpen = false;
 
-        uf = new UserFunctions();
+        mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
 
-        tb = (Toolbar) findViewById(R.id.tool_bar);
+        mLinearLayout = new LinearLayoutManager(this);
+
+        mRecyclerView.setLayoutManager(mLinearLayout);
+
+        final HomeAdapter adapter = new HomeAdapter();
+
+        mRecyclerView.setAdapter(adapter);
+
+        uf = new UserFunctions();
 
         afegir.setOnClickListener(this);
         llista.setOnClickListener(this);
         barcode.setOnClickListener(this);
+
+        mRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Llista list = Llista.getInstance();
+                        list.borraUn(position);
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    }
+                })
+        );
 
         //Escoltar NFC
         mAdapter = NfcAdapter.getDefaultAdapter(this);
