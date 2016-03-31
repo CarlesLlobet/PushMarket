@@ -133,6 +133,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return "";
     }
 
+    public Product getProduct (Integer id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery="SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + KEY_ID + " = " + id;
+        Cursor c = db.rawQuery(selectQuery, null);
+        Product p = null;
+        if (c.moveToFirst()) {
+            db.close();
+            p = new Product(c.getInt(0),c.getString(1),c.getString(2),Uri.parse(c.getString(3)),c.getInt(4),c.getInt(5));
+        }
+        db.close();
+        return p;
+    }
+
     public Uri getFoto (Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery="SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + KEY_ID + " = " + id;

@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.Domain.Product;
 
 /**
  * Created by CarlesLlobet on 04/02/2016.
@@ -42,6 +44,13 @@ public class BarcodeActivity extends AppCompatActivity implements ZXingScannerVi
         Log.v("TAG", rawResult.getText()); // Prints scan results
         Log.v("TAG-FORMAT", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
         Toast.makeText(this, rawResult.getText(), Toast.LENGTH_LONG).show();
+        UserFunctions userFunctions = new UserFunctions();
+        Product nou = userFunctions.getProduct(getApplicationContext(),Integer.valueOf(rawResult.getText()));
+        if (nou == null) {
+            userFunctions.updateAllProducts(getApplicationContext());
+        } else {
+            //Afegir producte a l'adapter
+        }
         finish();
         // If you would like to resume scanning, call this method below:
         //mScannerView.resumeCameraPreview(this);

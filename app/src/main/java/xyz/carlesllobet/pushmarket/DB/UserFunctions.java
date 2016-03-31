@@ -200,6 +200,12 @@ public class UserFunctions {
         return products;
     }
 
+    public Product getProduct(Context context, Integer id) {
+        DatabaseHandler db = new DatabaseHandler(context);
+        Product product = db.getProduct(id);
+        return product;
+    }
+
     public String getProductName(Context context, Integer id) {
         DatabaseHandler db = new DatabaseHandler(context);
         String res = db.getProductName(id);
