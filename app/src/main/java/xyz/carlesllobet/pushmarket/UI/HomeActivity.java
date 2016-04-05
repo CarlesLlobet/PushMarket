@@ -31,6 +31,7 @@ import java.util.Arrays;
 
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
 import xyz.carlesllobet.pushmarket.Domain.Llista;
+import xyz.carlesllobet.pushmarket.Domain.Product;
 import xyz.carlesllobet.pushmarket.Domain.RecyclerItemClickListener;
 import xyz.carlesllobet.pushmarket.R;
 
@@ -322,7 +323,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                Toast.makeText(HomeActivity.this, result, Toast.LENGTH_LONG).show();
+                // Do something with the result here
+                UserFunctions userFunctions = new UserFunctions();
+                Product nou = userFunctions.getProduct(getApplicationContext(),Long.valueOf(result));
+                if (nou == null) {
+                    //userFunctions.updateAllProducts(getApplicationContext());
+                } else {
+                    Llista list = Llista.getInstance();
+                    list.addProduct(nou);
+                }
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             }
         }
     }

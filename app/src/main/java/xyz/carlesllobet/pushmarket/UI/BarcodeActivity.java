@@ -9,6 +9,7 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
+import xyz.carlesllobet.pushmarket.Domain.Llista;
 import xyz.carlesllobet.pushmarket.Domain.Product;
 
 /**
@@ -43,13 +44,13 @@ public class BarcodeActivity extends AppCompatActivity implements ZXingScannerVi
         // Do something with the result here
         Log.v("TAG", rawResult.getText()); // Prints scan results
         Log.v("TAG-FORMAT", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
-        Toast.makeText(this, rawResult.getText(), Toast.LENGTH_LONG).show();
         UserFunctions userFunctions = new UserFunctions();
-        Product nou = userFunctions.getProduct(getApplicationContext(),Integer.valueOf(rawResult.getText()));
+        Product nou = userFunctions.getProduct(getApplicationContext(),Long.valueOf(rawResult.getText()));
         if (nou == null) {
             //userFunctions.updateAllProducts(getApplicationContext());
         } else {
-            //Afegir producte a l'adapter
+            Llista list = Llista.getInstance();
+            list.addProduct(nou);
         }
         finish();
         // If you would like to resume scanning, call this method below:
