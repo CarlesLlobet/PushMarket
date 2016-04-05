@@ -47,7 +47,7 @@ public class BarcodeActivity extends AppCompatActivity implements ZXingScannerVi
         UserFunctions userFunctions = new UserFunctions();
         Product nou = userFunctions.getProduct(getApplicationContext(),Integer.valueOf(rawResult.getText()));
         if (nou == null) {
-            userFunctions.updateAllProducts(getApplicationContext());
+            //userFunctions.updateAllProducts(getApplicationContext());
         } else {
             //Afegir producte a l'adapter
         }
