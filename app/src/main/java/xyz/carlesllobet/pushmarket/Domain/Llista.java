@@ -54,4 +54,12 @@ public class Llista {
         }
     }
     public void borrarLlista() {llista = new ArrayList<Product>();}
+
+    public Double getPreuTotal() {
+        Double res = 0.00;
+        for (int i = 0; i < llista.size(); ++i) {
+            res += llista.get(i).getPreu();
+        }
+        return res;
+    }
 }

@@ -5,28 +5,27 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
+import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
-import android.nfc.tech.IsoDep;
-import android.nfc.tech.MifareClassic;
-import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
-import android.nfc.tech.NdefFormatable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
@@ -44,10 +43,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private FloatingActionButton afegir, llista, barcode;
 
+    private ImageButton enviar;
+    private boolean enviant;
+
+    private TextView ajuda;
+
     private Boolean fabOpen;
 
     NfcAdapter mAdapter;
-    PendingIntent mPendingIntent;
     ProgressDialog pDialog;
 
     private RecyclerView mRecyclerView;
@@ -67,6 +70,20 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         afegir = (FloatingActionButton) findViewById(R.id.fab);
         llista = (FloatingActionButton) findViewById(R.id.fab1);
         barcode = (FloatingActionButton) findViewById(R.id.fab2);
+
+        enviant = false;
+
+        ajuda = (TextView) findViewById(R.id.textView10);
+        enviar = (ImageButton) findViewById(R.id.enviar);
+
+        if (Llista.getInstance().getAllProducts().isEmpty()) {
+            ajuda.setVisibility(View.VISIBLE);
+            enviar.setVisibility(View.INVISIBLE);
+        }
+        else{
+            ajuda.setVisibility(View.INVISIBLE);
+            enviar.setVisibility(View.VISIBLE);
+        }
 
         llista.setVisibility(View.INVISIBLE);
         barcode.setVisibility(View.INVISIBLE);
@@ -132,6 +149,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.fab2:
                 startActivity(new Intent(getApplicationContext(), BarcodeActivity.class));
+                break;
+            case R.id.enviar:
+                //Enviar per NFC les dades
+                enviant = true;
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        enviant = false;
+                    }
+                }, 15000);
                 break;
         }
     }
@@ -228,7 +255,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             if (MIME_TEXT_PLAIN.equals(type)) {
 
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                new NdefReaderTask().execute(tag);
+                if (enviant) try {
+                    write(tag);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (FormatException e) {
+                    e.printStackTrace();
+                }
+                else new NdefReaderTask().execute(tag);
 
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
@@ -242,7 +276,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
-                    new NdefReaderTask().execute(tag);
+                    if (enviant) try {
+                        write(tag);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (FormatException e) {
+                        e.printStackTrace();
+                    }
+                    else new NdefReaderTask().execute(tag);
                     break;
                 }
             }
@@ -325,15 +366,61 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             if (result != null) {
                 // Do something with the result here
                 UserFunctions userFunctions = new UserFunctions();
-                Product nou = userFunctions.getProduct(getApplicationContext(),Long.valueOf(result));
+                Product nou = userFunctions.getProduct(getApplicationContext(), Long.valueOf(result));
                 if (nou == null) {
                     //userFunctions.updateAllProducts(getApplicationContext());
                 } else {
                     Llista list = Llista.getInstance();
                     list.addProduct(nou);
                 }
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                recreate();
             }
         }
+    }
+
+    private NdefRecord createRecord() throws UnsupportedEncodingException {
+        ArrayList<Product> productes = Llista.getInstance().getAllProducts();
+        String res = productes.get(0).getId().toString();
+        for (int i = 1; i < productes.size(); ++i){
+            res += ",";
+            res += productes.get(i).getId();
+        }
+        String lang = "en";
+        byte[] textBytes  = res.getBytes();
+        byte[] langBytes  = lang.getBytes("US-ASCII");
+        int    langLength = langBytes.length;
+        int    textLength = textBytes.length;
+        byte[] payload    = new byte[1 + langLength + textLength];
+
+        // set status byte (see NDEF spec for actual bits)
+        payload[0] = (byte) langLength;
+
+        // copy langbytes and textbytes into payload
+        System.arraycopy(langBytes, 0, payload, 1,              langLength);
+        System.arraycopy(textBytes, 0, payload, 1 + langLength, textLength);
+
+        NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+                NdefRecord.RTD_TEXT,
+                new byte[0],
+                payload);
+
+        return record;
+    }
+
+    private void write(Tag tag) throws IOException, FormatException {
+        NdefRecord[] records = { createRecord() };
+        NdefMessage  message = new NdefMessage(records);
+
+        // Get an instance of Ndef for the tag.
+        Ndef ndef = Ndef.get(tag);
+
+        // Enable I/O
+        ndef.connect();
+
+        // Write the message
+        ndef.writeNdefMessage(message);
+
+        // Close the connection
+        ndef.close();
     }
 }
