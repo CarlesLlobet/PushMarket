@@ -44,7 +44,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DESCRIPTION + " TEXT NOT NULL,"
                 + KEY_FOTO + " STRING,"
                 + KEY_SECTOR + " INTEGER,"
-                + KEY_PREU + " INTEGER"+ ")";
+                + KEY_PREU + " REAL"+ ")";
         db.execSQL(CREATE_PROD_TABLE);
     }
  
@@ -61,7 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public boolean addProduct(Long id, String nombre, String description, Integer sector, Integer preu, Uri pic) {
+    public boolean addProduct(Long id, String nombre, String description, Integer sector, Double preu, Uri pic) {
     	SQLiteDatabase db = this.getWritableDatabase();
 
         //Si existeix, retorna fals, i no es pot afegir
@@ -100,7 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Product aux = new Product(cursor.getLong(0),cursor.getString(1),cursor.getString(2),Uri.parse(cursor.getString(3)),
-                        cursor.getInt(4),cursor.getInt(5));
+                        cursor.getInt(4),cursor.getDouble(5));
                 products.add(aux);
             } while (cursor.moveToNext());
         }
@@ -138,7 +138,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Product p = null;
         if (c.moveToFirst()) {
             db.close();
-            p = new Product(c.getLong(0),c.getString(1),c.getString(2),Uri.parse(c.getString(3)),c.getInt(4),c.getInt(5));
+            p = new Product(c.getLong(0),c.getString(1),c.getString(2),Uri.parse(c.getString(3)),c.getInt(4),c.getDouble(5));
         }
         db.close();
         return p;

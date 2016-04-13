@@ -12,7 +12,7 @@ public class Product {
     String name;
     String description;
     Integer sector;
-    Integer preu;
+    Double preu;
     Uri pic;
 
     // Empty constructor
@@ -21,7 +21,7 @@ public class Product {
     }
 
     // constructor
-    public Product(Long id, String name, String description, Uri pic, Integer sector, Integer preu) {
+    public Product(Long id, String name, String description, Uri pic, Integer sector, Double preu) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -65,12 +65,12 @@ public class Product {
     }
 
     // getting punctuation
-    public Integer getPreu() {
+    public Double getPreu() {
         return this.preu;
     }
 
     // setting punctuation
-    public void setPreu(Integer price) {
+    public void setPreu(Double price) {
         this.preu = price;
     }
 

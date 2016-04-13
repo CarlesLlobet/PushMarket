@@ -213,7 +213,7 @@ public class UserFunctions {
         return res;
     }
 
-    public boolean addProduct(Context context, Long id, String nom, String descripcio, Integer preu, Integer sector, Uri foto){
+    public boolean addProduct(Context context, Long id, String nom, String descripcio, Double preu, Integer sector, Uri foto){
         DatabaseHandler db = new DatabaseHandler(context);
         boolean res = db.addProduct(id,nom,descripcio,sector,preu,foto);
         return res;
@@ -223,12 +223,18 @@ public class UserFunctions {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (preferences.getString("TestValues","notExists").equals("notExists")) {
             //Fiquem valors inicials
-            Uri fotoAux = Uri.parse("android.resource://xyz.carlesllobet.livesoccer/" + R.drawable.cart_outline);
-            addProduct(context,5411786006905L, "Flandria Original", "Fumar Mata", 3, 2, fotoAux);
-            addProduct(context, 5411786006906L, "Chupa Chup Max", "Contiene gluten", 2, 1, fotoAux);
-            fotoAux = Uri.parse("android.resource://xyz.carlesllobet.livesoccer/" + R.drawable.cart_plus);
-            addProduct(context, 3057067222903L, "GVine ginebra", "30% alcohol", 30, 2, fotoAux);
-            addProduct(context,3057067222902L, "Puta app", "Que sida xd", 100, 69, fotoAux);
+            Uri vi = Uri.parse("android.resource://xyz.carlesllobet.pushmarket/" + R.drawable.vi);
+            Uri tabac = Uri.parse("android.resource://xyz.carlesllobet.pushmarket/" + R.drawable.tabac);
+            Uri paper = Uri.parse("android.resource://xyz.carlesllobet.pushmarket/" + R.drawable.paper);
+            Uri diari = Uri.parse("android.resource://xyz.carlesllobet.pushmarket/" + R.drawable.diari);
+            Uri letibalm = Uri.parse("android.resource://xyz.carlesllobet.pushmarket/" + R.drawable.letibalm);
+            Uri cafe = Uri.parse("android.resource://xyz.carlesllobet.pushmarket/" + R.drawable.cafe);
+            addProduct(context,5411786006905L, "Flandria Original", "Fumar Mata", 3.35, 2, tabac);
+            addProduct(context, 8413831003300L, "Xènius Penedès", "12.5% vol, 75cl", 8.90, 32, vi);
+            addProduct(context, 3057067222903L, "Papel de Liar OCB", "300 unidades", 2.25, 2, paper);
+            addProduct(context,8435173009116L, "Cápsulas café", "Capsulas ecologicas", 4.99, 33, cafe);
+            addProduct(context,8427626000900L, "El Mundo", "Noticias de deportes", 1.10, 1, diari);
+            addProduct(context,84196866L, "Letibalm", "Crema labial", 4.30, 5, letibalm);
 
             //Guardem que s'han posat els valors inicials
             SharedPreferences.Editor editor = preferences.edit();
