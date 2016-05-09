@@ -153,6 +153,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             case R.id.enviar:
                 //Enviar per NFC les dades
                 enviant = true;
+                Log.d("enviant","true");
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
@@ -206,7 +207,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         if (show) {
             pDialog = new ProgressDialog(HomeActivity.this);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.setMessage("Procesando...");
+            pDialog.setMessage("Buscando dispositivos...");
             pDialog.setCancelable(true);
             pDialog.setMax(100);
 
@@ -250,12 +251,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private void handleIntent(Intent intent) {
         String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
-
+            Log.d("HEY!","ndef");
             String type = intent.getType();
             if (MIME_TEXT_PLAIN.equals(type)) {
 
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 if (enviant) try {
+                    showProgress(true);
                     write(tag);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -268,7 +270,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 Log.d(TAG, "Wrong mime type: " + type);
             }
         } else if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
-
+            Log.d("HEY!","tech");
             // In case we would still use the Tech Discovered Intent
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             String[] techList = tag.getTechList();
@@ -277,6 +279,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
                     if (enviant) try {
+                        showProgress(true);
                         write(tag);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -378,26 +381,29 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private NdefRecord createRecord() throws UnsupportedEncodingException {
+    private NdefRecord writeList() throws UnsupportedEncodingException {
         ArrayList<Product> productes = Llista.getInstance().getAllProducts();
         String res = productes.get(0).getId().toString();
         for (int i = 1; i < productes.size(); ++i){
             res += ",";
             res += productes.get(i).getId();
         }
-        String lang = "en";
+        Log.d("escric:",res);
+        //String lang = "en";
         byte[] textBytes  = res.getBytes();
-        byte[] langBytes  = lang.getBytes("US-ASCII");
-        int    langLength = langBytes.length;
+        //byte[] langBytes  = lang.getBytes("US-ASCII");
+        //int    langLength = langBytes.length;
         int    textLength = textBytes.length;
-        byte[] payload    = new byte[1 + langLength + textLength];
+        byte[] payload    = new byte[1 + textLength]; //1 + langLength + textLength
 
         // set status byte (see NDEF spec for actual bits)
-        payload[0] = (byte) langLength;
+        //payload[0] = (byte) langLength;
 
         // copy langbytes and textbytes into payload
-        System.arraycopy(langBytes, 0, payload, 1,              langLength);
-        System.arraycopy(textBytes, 0, payload, 1 + langLength, textLength);
+        //System.arraycopy(langBytes, 0, payload, 1,              langLength);
+        System.arraycopy(textBytes, 0, payload, 1 , textLength); //1 + langLength, textLength
+
+        Log.d("escric:",res);
 
         NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
                 NdefRecord.RTD_TEXT,
@@ -408,12 +414,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void write(Tag tag) throws IOException, FormatException {
-        NdefRecord[] records = { createRecord() };
-        NdefMessage  message = new NdefMessage(records);
+        NdefRecord[] list = { writeList() };
+        NdefMessage  message = new NdefMessage(list);
 
         // Get an instance of Ndef for the tag.
         Ndef ndef = Ndef.get(tag);
-
+        showProgress(false);
         // Enable I/O
         ndef.connect();
 
