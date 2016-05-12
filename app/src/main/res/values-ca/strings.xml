@@ -51,7 +51,7 @@
     <string name="ciudad">Ciutat:</string>
     <string name="pais">País:</string>
     <string name="sexo">Sexe:</string>
-    <string name="edad">Edat:</string>
+    <string name="edad">Data Naixement:</string>
     <string name="male">Masculí</string>
     <string name="female">Femení</string>
     <string name="error3">Dades incorrectes. Prova amb un altre correu</string>

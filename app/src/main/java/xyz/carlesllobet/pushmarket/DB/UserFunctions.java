@@ -30,7 +30,7 @@ public class UserFunctions {
     private static String webserviceURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
 
     private static String login_tag = "login";
-    private static String register_tag = "register";
+    private static String register_tag = "registerUser";
     private static String products_tag = "products";
     private static String password_tag = "password";
 
@@ -60,14 +60,14 @@ public class UserFunctions {
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", register_tag));
-        params.add(new BasicNameValuePair("nombre", nombre));
+        params.add(new BasicNameValuePair("nom", nombre));
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("cognoms", cognoms));
-        params.add(new BasicNameValuePair("edad", edad));
+        params.add(new BasicNameValuePair("data_naix", edad));
         params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("sexe", sexe));
-        params.add(new BasicNameValuePair("pais", pais));
-        params.add(new BasicNameValuePair("ciutat", ciutat));
+        //params.add(new BasicNameValuePair("pais", pais));
+        //params.add(new BasicNameValuePair("ciutat", ciutat));
 
         // getting JSON Object
         JSONObject json = jsonParser.getJSONFromUrl(webserviceURL, params);

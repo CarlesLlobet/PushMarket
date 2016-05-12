@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -119,7 +120,11 @@ public class RegisterActivity extends BaseActivity {
 
             JSONObject json = userFunction.registerUser(params[0], params[1], params[2], params[3], params[4],
                     params[5], params[6], params[7]);
-
+            try {
+                Log.d("json",json.getString(KEY_SUCCESS));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return json;
 
         }
@@ -156,10 +161,12 @@ public class RegisterActivity extends BaseActivity {
                     finish();
                 } else {
                     // Error in register
+                    Log.d("error",json.getString(KEY_SUCCESS));
                     registerErrorMsg.setText(R.string.error3);
                     showProgress(false);
                 }
             } catch (JSONException e) {
+                Log.d("error","Exception!");
                 e.printStackTrace();
             }
 

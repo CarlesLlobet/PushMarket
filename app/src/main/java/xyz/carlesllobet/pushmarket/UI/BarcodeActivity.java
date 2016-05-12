@@ -1,5 +1,6 @@
 package xyz.carlesllobet.pushmarket.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -46,13 +47,14 @@ public class BarcodeActivity extends AppCompatActivity implements ZXingScannerVi
         Log.v("TAG-FORMAT", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
         UserFunctions userFunctions = new UserFunctions();
         Product nou = userFunctions.getProduct(getApplicationContext(),Long.valueOf(rawResult.getText()));
+        Log.d("barcode:", rawResult.getText());
         if (nou == null) {
             //userFunctions.updateAllProducts(getApplicationContext());
         } else {
             Llista list = Llista.getInstance();
             list.addProduct(nou);
         }
-        finish();
+        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         // If you would like to resume scanning, call this method below:
         //mScannerView.resumeCameraPreview(this);
     }

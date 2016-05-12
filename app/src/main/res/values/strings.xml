@@ -65,7 +65,7 @@
     <string name="notifPass">Contraseña cambiada correctamente!</string>
     <string name="tituloProducts">Productos</string>
     <string name="lastName">Apellidos:</string>
-    <string name="edad">Edad:</string>
+    <string name="edad">Fecha Nacimiento:</string>
     <string name="sexo">Sexo:</string>
     <string name="pais">Pais:</string>
     <string name="ciudad">Ciudad:</string>

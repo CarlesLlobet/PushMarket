@@ -93,5 +93,6 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:src="@mipmap/ic_enviar"
+        android:onClick="sendFile"
         android:background="@color/colorAccent2"/>
 </RelativeLayout>

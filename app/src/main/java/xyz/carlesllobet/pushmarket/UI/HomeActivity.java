@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -13,7 +14,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,10 +24,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import android.provider.Settings;
 
 import xyz.carlesllobet.pushmarket.DB.UserFunctions;
 import xyz.carlesllobet.pushmarket.Domain.Llista;
@@ -150,17 +154,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             case R.id.fab2:
                 startActivity(new Intent(getApplicationContext(), BarcodeActivity.class));
                 break;
-            case R.id.enviar:
-                //Enviar per NFC les dades
-                enviant = true;
-                Log.d("enviant","true");
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        enviant = false;
-                    }
-                }, 15000);
-                break;
         }
     }
 
@@ -256,15 +249,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             if (MIME_TEXT_PLAIN.equals(type)) {
 
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                if (enviant) try {
-                    showProgress(true);
-                    write(tag);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (FormatException e) {
-                    e.printStackTrace();
-                }
-                else new NdefReaderTask().execute(tag);
+                new NdefReaderTask().execute(tag);
 
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
@@ -278,15 +263,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
-                    if (enviant) try {
-                        showProgress(true);
-                        write(tag);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (FormatException e) {
-                        e.printStackTrace();
-                    }
-                    else new NdefReaderTask().execute(tag);
+                    new NdefReaderTask().execute(tag);
                     break;
                 }
             }
@@ -381,52 +358,87 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private NdefRecord writeList() throws UnsupportedEncodingException {
-        ArrayList<Product> productes = Llista.getInstance().getAllProducts();
-        String res = productes.get(0).getId().toString();
-        for (int i = 1; i < productes.size(); ++i){
-            res += ",";
-            res += productes.get(i).getId();
+    public void sendFile(View view) {
+        mAdapter = NfcAdapter.getDefaultAdapter(this);
+
+        // Check whether NFC is enabled on device
+        if(!mAdapter.isEnabled()){
+            // NFC is disabled, show the settings UI
+            // to enable NFC
+            Toast.makeText(this, "Please enable NFC.",
+                    Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
         }
-        Log.d("escric:",res);
-        //String lang = "en";
-        byte[] textBytes  = res.getBytes();
-        //byte[] langBytes  = lang.getBytes("US-ASCII");
-        //int    langLength = langBytes.length;
-        int    textLength = textBytes.length;
-        byte[] payload    = new byte[1 + textLength]; //1 + langLength + textLength
+        // Check whether Android Beam feature is enabled on device
+        else if(!mAdapter.isNdefPushEnabled()) {
+            // Android Beam is disabled, show the settings UI
+            // to enable Android Beam
+            Toast.makeText(this, "Please enable Android Beam.",
+                    Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
+        }
+        else {
+            // NFC and Android Beam both are enabled
+            try{
+                exportListInCSV();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
 
-        // set status byte (see NDEF spec for actual bits)
-        //payload[0] = (byte) langLength;
+            // File to be transferred
+            String fileName = "List.csv";
 
-        // copy langbytes and textbytes into payload
-        //System.arraycopy(langBytes, 0, payload, 1,              langLength);
-        System.arraycopy(textBytes, 0, payload, 1 , textLength); //1 + langLength, textLength
+            // Retrieve the path to the user's public pictures directory
+            File fileDirectory = new File(Environment.getExternalStorageDirectory() + "/PushMarket");
 
-        Log.d("escric:",res);
+            // Create a new file using the specified directory and name
+            File fileToTransfer = new File(fileDirectory, fileName);
+            fileToTransfer.setReadable(true, false);
 
-        NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
-                NdefRecord.RTD_TEXT,
-                new byte[0],
-                payload);
-
-        return record;
+            mAdapter.setBeamPushUris(
+                    new Uri[]{Uri.fromFile(fileToTransfer)}, this);
+        }
     }
 
-    private void write(Tag tag) throws IOException, FormatException {
-        NdefRecord[] list = { writeList() };
-        NdefMessage  message = new NdefMessage(list);
+    public void exportListInCSV() throws IOException {
+        {
 
-        // Get an instance of Ndef for the tag.
-        Ndef ndef = Ndef.get(tag);
-        showProgress(false);
-        // Enable I/O
-        ndef.connect();
+            File folder = new File(Environment.getExternalStorageDirectory()
+                    + "/PushMarket");
 
-        // Write the message
-        ndef.writeNdefMessage(message);
+            boolean var = false;
+            if (!folder.exists()) var = folder.mkdir();
 
-        // Close the connection
-        ndef.close();
+            Log.d("carpeta", String.valueOf(var));
+
+            final String filename = folder.toString() + "/" + "List.csv";
+
+            // show waiting screen
+            showProgress(true);
+
+            new Thread() {
+                public void run() {
+                    try {
+
+                        FileWriter fw = new FileWriter(filename);
+
+                        ArrayList<Product> productes = Llista.getInstance().getAllProducts();
+                        String res = productes.get(0).getId().toString();
+                        for (int i = 1; i < productes.size(); ++i){
+                            res += ",";
+                            res += productes.get(i).getId();
+                        }
+                        fw.append(res);
+                        fw.append('\n');
+
+                        // fw.flush();
+                        fw.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
     }
 }
