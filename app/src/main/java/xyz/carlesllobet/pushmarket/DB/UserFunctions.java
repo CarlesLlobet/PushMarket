@@ -25,12 +25,12 @@ public class UserFunctions {
     // Testing in localhost using wamp or xampp
     // use http://10.0.2.2/ to connect to your localhost ie http://localhost/
 
-    //private static String loginURL = "http://192.168.69.18/servei_web";
-    //private static String registerURL = "http://192.168.69.18/servei_web";
+    //private static String loginURL = "http://pushmarket.carlesllobet.xyz/webservice/login.php";
+    //private static String registerURL = "http://pushmarket.carlesllobet.xyz/webservice/register.php";
     private static String webserviceURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
 
     private static String login_tag = "login";
-    private static String register_tag = "registerUser";
+    private static String register_tag = "register";
     private static String products_tag = "products";
     private static String password_tag = "password";
 
@@ -66,7 +66,7 @@ public class UserFunctions {
         params.add(new BasicNameValuePair("data_naix", edad));
         params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("sexe", sexe));
-        //params.add(new BasicNameValuePair("pais", pais));
+        params.add(new BasicNameValuePair("pais", pais));
         //params.add(new BasicNameValuePair("ciutat", ciutat));
 
         // getting JSON Object

@@ -50,9 +50,10 @@
     <string name="ciudad">City:</string>
     <string name="pais">Country:</string>
     <string name="sexo">Sex:</string>
-    <string name="edad">Age:</string>
+    <string name="edad">Birth date  (yyyy-mm-dd):</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="error3">Incorrect data. Try with another email</string>
     <string name="name">Name:</string>
+    <string name="serverFail">Server is unavailable at this moment</string>
 </resources>

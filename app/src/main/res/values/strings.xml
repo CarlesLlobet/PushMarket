@@ -25,6 +25,7 @@
     <string name="passwd">"Contraseña:"</string>
     <string name="error" translatable="false">"Error"</string>
     <string name="loginFail">"El usuario o contraseña introducidos no son correctos"</string>
+    <string name="serverFail">"El servidor no esta disponible en estos momentos"</string>
 
 
     <!-- ChangeUser Fields -->
@@ -65,7 +66,7 @@
     <string name="notifPass">Contraseña cambiada correctamente!</string>
     <string name="tituloProducts">Productos</string>
     <string name="lastName">Apellidos:</string>
-    <string name="edad">Fecha Nacimiento:</string>
+    <string name="edad">Fecha Nacimiento (aaaa-mm-dd):</string>
     <string name="sexo">Sexo:</string>
     <string name="pais">Pais:</string>
     <string name="ciudad">Ciudad:</string>

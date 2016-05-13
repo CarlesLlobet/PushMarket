@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -137,40 +138,59 @@ public class LoginActivity extends AppCompatActivity {
             // check for login response
             try {
                 if (json != null && json.getString(KEY_SUCCESS) != null) {
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = preferences.edit();
+                    String res = json.getString(KEY_SUCCESS);
+                    if (Integer.parseInt(res) == 1) {
+                        // user successfully logged in
+                        // Store user details in SQLite Database
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor = preferences.edit();
 
-                    UserFunctions userFunction = new UserFunctions();
-                    userFunction.logoutUser(getApplicationContext());
+                        UserFunctions userFunction = new UserFunctions();
+                        userFunction.logoutUser(getApplicationContext());
 
-                    JSONObject json_user = json.getJSONObject("user");
+                        JSONObject json_user = json.getJSONObject("user");
 
-                    editor.putString(KEY_EMAIL, email);
-                    editor.putString("password", password);
-                    editor.putString(KEY_NAME, json_user.getString(KEY_NAME));
-                    editor.putString(KEY_LAST_NAME, json_user.getString(KEY_LAST_NAME));
-                    editor.putString(KEY_EDAD, json_user.getString(KEY_EDAD));
-                    editor.putString(KEY_SEX, json_user.getString(KEY_SEX));
-                    editor.putString(KEY_COUNTRY, json_user.getString(KEY_COUNTRY));
-                    editor.putString(KEY_CITY, json_user.getString(KEY_CITY));
-                    editor.commit();
+                        editor.putString(KEY_EMAIL, email);
+                        editor.putString("password", password);
+                        editor.putString(KEY_NAME, json_user.getString(KEY_NAME));
+                        editor.putString(KEY_LAST_NAME, json_user.getString(KEY_LAST_NAME));
+                        editor.putString(KEY_EDAD, json_user.getString(KEY_EDAD));
+                        editor.putString(KEY_SEX, json_user.getString(KEY_SEX));
+                        editor.putString(KEY_COUNTRY, json_user.getString(KEY_COUNTRY));
+                        editor.putString(KEY_CITY, json_user.getString(KEY_CITY));
+                        editor.commit();
 
-                    // Launch Dashboard Screen
-                    Intent dashboard = new Intent(getApplicationContext(), GifActivity.class);
+                        // Launch Dashboard Screen
+                        Intent dashboard = new Intent(getApplicationContext(), GifActivity.class);
 
-                    showProgress(false);
-                    // Close all views before launching Dashboard
-                    dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(dashboard);
+                        showProgress(false);
+                        // Close all views before launching Dashboard
+                        dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(dashboard);
 
-                    // Close Login Screen
-                    finish();
+                        // Close Login Screen
+                        finish();
+                    } else {
+                        // Error in login
+                        showProgress(false);
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle(R.string.error)
+                                .setMessage(R.string.loginFail)
+                                .setPositiveButton(R.string.btnRetry, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        clickable = true;
+                                        dialog.cancel();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
                 } else {
-                    // Error in login
+                    clickable = true;
                     showProgress(false);
                     new AlertDialog.Builder(LoginActivity.this)
                             .setTitle(R.string.error)
-                            .setMessage(R.string.loginFail)
+                            .setMessage(R.string.serverFail)
                             .setPositiveButton(R.string.btnRetry, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     clickable = true;
@@ -183,7 +203,6 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -200,5 +219,11 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             pDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        clickable = true;
+        super.onBackPressed();  // optional depending on your needs
     }
 }

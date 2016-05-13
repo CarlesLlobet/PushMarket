@@ -3,6 +3,7 @@ package xyz.carlesllobet.pushmarket.UI;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -118,58 +119,52 @@ public class RegisterActivity extends BaseActivity {
             UserFunctions userFunction = new UserFunctions();
             if (params.length != 7) return null;
 
+            Log.d("register:","cridant");
+
             JSONObject json = userFunction.registerUser(params[0], params[1], params[2], params[3], params[4],
                     params[5], params[6], params[7]);
-            try {
-                Log.d("json",json.getString(KEY_SUCCESS));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+            Log.d("register:","acabat");
+
             return json;
 
         }
 
         @Override
-        protected void onPostExecute(JSONObject json) {
+        protected void onPostExecute (JSONObject json){
+            //super.onPostExecute(logged);
+            //your stuff
+            //you can pass params, launch a new Intent, a Toast...
+            Log.d("register:","on post");
+            // check for login response
             try {
                 if (json != null && json.getString(KEY_SUCCESS) != null) {
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = preferences.edit();
+                    registerErrorMsg.setText("");
+                    String res = json.getString(KEY_SUCCESS);
 
-                    UserFunctions userFunction = new UserFunctions();
-                    userFunction.logoutUser(getApplicationContext());
+                    if(Integer.parseInt(res) == 1){
+                        clickable = true;
+                        registerErrorMsg.setTextColor(Color.GREEN);
+                        registerErrorMsg.setText("Registrat correctament");
 
-                    editor.putString(KEY_EMAIL, email);
-                    editor.putString("password", password);
-                    editor.putString(KEY_NAME, nombre);
-                    editor.putString(KEY_LAST_NAME, apellido);
-                    editor.putString(KEY_EDAD, age);
-                    editor.putString(KEY_SEX, sex);
-                    editor.putString(KEY_COUNTRY, country);
-                    editor.putString(KEY_CITY, city);
-                    editor.commit();
+                        showProgress(false);
 
-                    // Launch Dashboard Screen
-                    Intent dashboard = new Intent(getApplicationContext(), GifActivity.class);
-
-                    showProgress(false);
-                    // Close all views before launching Dashboard
-                    dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(dashboard);
-
-                    // Close Login Screen
-                    finish();
+                    }else{
+                        // Error in login
+                        clickable = true;
+                        registerErrorMsg.setTextColor(Color.RED);
+                        registerErrorMsg.setText("Usuari ja existent");
+                        showProgress(false);
+                    }
                 } else {
-                    // Error in register
-                    Log.d("error",json.getString(KEY_SUCCESS));
-                    registerErrorMsg.setText(R.string.error3);
+                    clickable = true;
+                    registerErrorMsg.setTextColor(Color.RED);
+                    registerErrorMsg.setText("El servidor no esta disponible");
                     showProgress(false);
                 }
             } catch (JSONException e) {
-                Log.d("error","Exception!");
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -193,5 +188,12 @@ public class RegisterActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_others, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        clickable = true;
+        super.onBackPressed();  // optional depending on your needs
     }
 }
