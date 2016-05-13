@@ -27,7 +27,7 @@ public class UserFunctions {
 
     //private static String loginURL = "http://pushmarket.carlesllobet.xyz/webservice/login.php";
     //private static String registerURL = "http://pushmarket.carlesllobet.xyz/webservice/register.php";
-    private static String webserviceURL = "http://pushmarket.carlesllobet.xyz/webservice/index.php";
+    private static String webserviceURL = "http://pushmarket.carlesllobet.xyz/webservice2/index.php";
 
     private static String login_tag = "login";
     private static String register_tag = "register";
