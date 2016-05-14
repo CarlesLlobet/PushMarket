@@ -58,7 +58,6 @@ public class RegisterActivity extends BaseActivity {
     private String email;
     private String age;
     private String country;
-    private String city;
     private String sex;
 
     @Override
@@ -73,7 +72,6 @@ public class RegisterActivity extends BaseActivity {
         inputPassword = (EditText) findViewById(R.id.registerPassword);
         inputAge = (EditText) findViewById(R.id.registerAge);
         inputCountry = (EditText) findViewById(R.id.registerCountry);
-        inputCity = (EditText) findViewById(R.id.registerCity);
         inputSex = (RadioGroup) findViewById(R.id.registerSex);
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
@@ -94,19 +92,18 @@ public class RegisterActivity extends BaseActivity {
                     email = inputEmail.getText().toString();
                     age = inputAge.getText().toString();
                     country = inputCountry.getText().toString();
-                    city = inputCity.getText().toString();
                     sex = "Undefined";
                     //Cojer sexo
                     int selectedId = inputSex.getCheckedRadioButtonId();
-                    if (selectedId == R.id.radioMale) sex = "Male";
-                    else if (selectedId == R.id.radioFemale) sex = "Female";
+                    if (selectedId == R.id.radioMale) sex = "Masculino";
+                    else if (selectedId == R.id.radioFemale) sex = "Femenino";
 
                     showProgress(true);
 
                     //Registrarlo
 
                     UserLoginTask AsyncLogin = new UserLoginTask();
-                    AsyncLogin.execute(email, nombre, apellido, age, password, sex, country, city);
+                    AsyncLogin.execute(email, nombre, apellido, age, password, sex, country);
                 }
             }
         });
@@ -116,12 +113,12 @@ public class RegisterActivity extends BaseActivity {
         @Override
         protected JSONObject doInBackground(String... params) {
             UserFunctions userFunction = new UserFunctions();
-            if (params.length != 7) return null;
+            if (params.length != 6) return null;
 
             Log.d("register:","cridant");
 
             JSONObject json = userFunction.registerUser(params[0], params[1], params[2], params[3], params[4],
-                    params[5], params[6], params[7]);
+                    params[5], params[6]);
 
             Log.d("register:","acabat");
 

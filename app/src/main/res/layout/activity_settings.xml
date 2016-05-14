@@ -160,33 +160,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="match_parent"
-                android:weightSum="4">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/ciudad"
-                    android:layout_weight="2"
-                    android:textColor="@android:color/white" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="-"
-                    android:id="@+id/ciudad"
-                    android:layout_weight="2"
-                    android:gravity="clip_vertical|center_horizontal"
-                    android:textColor="@android:color/white" />
-
-            </LinearLayout>
-
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

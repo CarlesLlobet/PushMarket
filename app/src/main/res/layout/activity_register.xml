@@ -106,21 +106,6 @@
             android:inputType="textAutoComplete"
             android:textColor="@android:color/white" />
 
-        <!--  City Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            android:text="@string/ciudad"
-            android:textColor="@android:color/white" />
-        <!--  City TextField -->
-        <EditText
-            android:id="@+id/registerCity"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textAutoComplete"
-            android:textColor="@android:color/white" />
-
         <!--  Sex Label -->
         <TextView
             android:layout_width="fill_parent"

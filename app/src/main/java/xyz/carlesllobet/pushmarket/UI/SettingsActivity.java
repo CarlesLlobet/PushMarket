@@ -29,7 +29,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     private String email;
     private String sex;
     private String country;
-    private String city;
     private String age;
 
     private TextView nombre;
@@ -37,7 +36,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     private TextView correo;
     private TextView edad;
     private TextView pais;
-    private TextView ciudad;
 
     private RadioButton sexo;
 
@@ -64,7 +62,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         correo = (TextView) findViewById(R.id.email);
         edad = (TextView) findViewById(R.id.edad);
         pais = (TextView) findViewById(R.id.pais);
-        ciudad = (TextView) findViewById(R.id.ciudad);
 
 
         name = userFunctions.getName(getApplicationContext());
@@ -72,7 +69,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         age = userFunctions.getAge(getApplicationContext());
         email = userFunctions.getEmail(getApplicationContext());
         country = userFunctions.getCountry(getApplicationContext());
-        city = userFunctions.getCity(getApplicationContext());
         sex = userFunctions.getSex(getApplicationContext());
 
         if (sex.equals("Male")) {
@@ -88,7 +84,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         correo.setText(email);
         edad.setText(age);
         pais.setText(country);
-        ciudad.setText(city);
 
         btnChangePassword = (Button) findViewById(R.id.btnChangePassword);
         btnChangePassword.setOnClickListener(this);

@@ -56,7 +56,7 @@ public class UserFunctions {
     }
 
     public JSONObject registerUser(String email, String nombre, String cognoms, String edad, String password,
-                                   String sexe, String pais, String ciutat) {
+                                   String sexe, String pais) {
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", register_tag));
@@ -67,7 +67,6 @@ public class UserFunctions {
         params.add(new BasicNameValuePair("data_naix", edad));
         params.add(new BasicNameValuePair("sexe", sexe));
         params.add(new BasicNameValuePair("pais", pais));
-        //params.add(new BasicNameValuePair("ciutat", ciutat));
 
         // getting JSON Object
         JSONObject json = jsonParser.getJSONFromUrl(webserviceURL, params);
