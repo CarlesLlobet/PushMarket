@@ -45,13 +45,12 @@ public class RegisterActivity extends BaseActivity {
 
     // JSON Response node names
     private static String KEY_SUCCESS = "success";
-    private static String KEY_NAME = "nombre";
-    private static String KEY_LAST_NAME = "nombre";
+    private static String KEY_NAME = "nom";
+    private static String KEY_LAST_NAME = "cognoms";
     private static String KEY_EMAIL = "email";
-    private static String KEY_EDAD = "edad";
+    private static String KEY_EDAD = "data_naix";
     private static String KEY_COUNTRY = "pais";
-    private static String KEY_CITY = "ciudad";
-    private static String KEY_SEX = "sexo";
+    private static String KEY_SEX = "sexe";
 
     private String nombre;
     private String apellido;

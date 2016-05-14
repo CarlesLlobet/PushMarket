@@ -60,11 +60,11 @@ public class UserFunctions {
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tag", register_tag));
-        params.add(new BasicNameValuePair("nom", nombre));
         params.add(new BasicNameValuePair("email", email));
+        params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("nom", nombre));
         params.add(new BasicNameValuePair("cognoms", cognoms));
         params.add(new BasicNameValuePair("data_naix", edad));
-        params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("sexe", sexe));
         params.add(new BasicNameValuePair("pais", pais));
         //params.add(new BasicNameValuePair("ciutat", ciutat));
