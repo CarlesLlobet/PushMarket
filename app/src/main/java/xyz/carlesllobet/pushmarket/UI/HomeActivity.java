@@ -108,6 +108,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         afegir.setOnClickListener(this);
         llista.setOnClickListener(this);
         barcode.setOnClickListener(this);
+        enviar.setOnClickListener(this);
 
         mRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -154,6 +155,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             case R.id.fab2:
                 startActivity(new Intent(getApplicationContext(), BarcodeActivity.class));
                 break;
+            case R.id.enviar:
+                sendFile(v);
+                Toast.makeText(getApplicationContext(), "Llista preparada per enviar", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -200,7 +204,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         if (show) {
             pDialog = new ProgressDialog(HomeActivity.this);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.setMessage("Buscando dispositivos...");
+            pDialog.setMessage("Preparando lista para enviar...");
             pDialog.setCancelable(true);
             pDialog.setMax(100);
 
@@ -402,19 +406,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     public void exportListInCSV() throws IOException {
         {
+            borrarCarpeta();
+            File folder = new File(android.os.Environment.getExternalStorageDirectory(),File.separator+"PushMarket");
 
-            File folder = new File(Environment.getExternalStorageDirectory()
-                    + "/PushMarket");
-
-            boolean var = false;
-            if (!folder.exists()) var = folder.mkdir();
-
-            Log.d("carpeta", String.valueOf(var));
+            if (!folder.exists()) folder.mkdir();
 
             final String filename = folder.toString() + "/" + "List.csv";
-
-            // show waiting screen
-            showProgress(true);
 
             new Thread() {
                 public void run() {
@@ -423,10 +420,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         FileWriter fw = new FileWriter(filename);
 
                         ArrayList<Product> productes = Llista.getInstance().getAllProducts();
-                        String res = productes.get(0).getId().toString();
-                        for (int i = 1; i < productes.size(); ++i){
+                        String res = uf.getEmail(HomeActivity.this);
+                        for (int i = 0; i < productes.size(); ++i){
                             res += ",";
-                            res += productes.get(i).getId();
+                            res += productes.get(i).getId().toString();
                         }
                         fw.append(res);
                         fw.append('\n');
@@ -440,5 +437,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 }
             }.start();
         }
+    }
+
+
+
+    public boolean borrarCarpeta(){
+        boolean borrada = false;
+        File list = new File(android.os.Environment.getExternalStorageDirectory(),File.separator+"PushMarket"+File.separator+"List.csv");
+        if (list.exists()){
+            borrada = list.delete();
+        }
+        return borrada;
     }
 }

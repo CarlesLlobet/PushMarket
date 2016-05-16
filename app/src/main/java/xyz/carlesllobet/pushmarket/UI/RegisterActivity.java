@@ -1,13 +1,10 @@
 package xyz.carlesllobet.pushmarket.UI;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +21,7 @@ import xyz.carlesllobet.pushmarket.R;
 /**
  * Created by JEDI on 10/08/2015.
  */
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     Button btnRegister;
 
@@ -113,14 +110,10 @@ public class RegisterActivity extends BaseActivity {
         @Override
         protected JSONObject doInBackground(String... params) {
             UserFunctions userFunction = new UserFunctions();
-            if (params.length != 6) return null;
-
-            Log.d("register:","cridant");
+            if (params.length != 7) return null;
 
             JSONObject json = userFunction.registerUser(params[0], params[1], params[2], params[3], params[4],
                     params[5], params[6]);
-
-            Log.d("register:","acabat");
 
             return json;
 
@@ -131,7 +124,6 @@ public class RegisterActivity extends BaseActivity {
             //super.onPostExecute(logged);
             //your stuff
             //you can pass params, launch a new Intent, a Toast...
-            Log.d("register:","on post");
             // check for login response
             try {
                 if (json != null && json.getString(KEY_SUCCESS) != null) {

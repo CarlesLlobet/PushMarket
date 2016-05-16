@@ -48,7 +48,7 @@ public class ProductsActivity extends BaseActivity {
                     @Override public void onItemClick(View view, int position) {
                         Llista list = Llista.getInstance();
                         list.addProduct(adapter.getItem(position));
-                        Toast.makeText(getApplicationContext(), "Producte afegit", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Producte afegit", Toast.LENGTH_SHORT).show();
                     }
                 })
         );
