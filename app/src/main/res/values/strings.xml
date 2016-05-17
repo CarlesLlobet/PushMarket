@@ -5,7 +5,7 @@
 
     <string name="tituloAyuda">Ayuda</string>
     <string name="tituloLogin">Iniciar Sesión</string>
-    <string name="tituloPassword">Cambiar contraseña</string>
+    <string name="tituloPassword">Modificar Datos</string>
     <string name="tituloRegister">Añadir usuario</string>
     <string name="tituloHome">Inicio</string>
     <string name="tituloSettings">Ajustes</string>
@@ -15,10 +15,6 @@
 
     <!-- Error Messages -->
 
-    <string name="error1">"La contraseña actual no es correcta!"</string>
-    <string name="error2">"Las contraseñas no coinciden!"</string>
-    <string name="error3">"Datos incorrectos. Prueba con otro correo"</string>
-
     <!-- Login Fields -->
     <string name="name">"Nombre:"</string>
     <string name="email">Correo electronico:</string>
@@ -26,12 +22,6 @@
     <string name="error" translatable="false">"Error"</string>
     <string name="loginFail">"El usuario o contraseña introducidos no son correctos"</string>
     <string name="serverFail">"El servidor no esta disponible en estos momentos"</string>
-
-
-    <!-- ChangeUser Fields -->
-    <string name="oldPasswd">"Contraseña actual:"</string>
-    <string name="newPasswd">"Nueva contraseña:"</string>
-    <string name="newPasswd2">"Repita la nueva contraseña:"</string>
 
     <!-- ProductsFragment Fields -->
     <string name="deleteUser">"Eliminar"</string>

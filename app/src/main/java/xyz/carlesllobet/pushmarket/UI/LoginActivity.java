@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     showProgress(true);
 
-                    if ((email.equals("admin@admin.com")) && (password.equals("4dm1n"))) {
+                    /*if ((email.equals("admin@admin.com")) && (password.equals("4dm1n"))) {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor editor = preferences.edit();
 
@@ -99,10 +99,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Close Login Screen
                         finish();
-                    } else {
+                    } else {*/
                         UserLoginTask AsyncLogin = new UserLoginTask();
                         AsyncLogin.execute(email, password);
-                    }
+                    //}
                 }
             }
         });

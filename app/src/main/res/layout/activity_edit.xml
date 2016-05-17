@@ -73,7 +73,7 @@
             android:id="@+id/registerPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="textVisiblePassword"
             android:textColor="@android:color/white" />
          
         <!--  Age Label -->
