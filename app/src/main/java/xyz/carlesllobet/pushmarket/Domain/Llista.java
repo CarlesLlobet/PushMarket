@@ -1,5 +1,7 @@
 package xyz.carlesllobet.pushmarket.Domain;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -25,12 +27,13 @@ public class Llista {
         return instancia;
     }
 
-    public void addProduct(Product p) {
-        if (llista.contains(p)){
+    public void addProduct(Product nou) {
+        Product p = containsInstance(llista,nou);
+        if (p!=null){
             Integer c = cantitats.get(llista.indexOf(p));
             cantitats.set(llista.indexOf(p),c+1);
         }else{
-            llista.add(p);
+            llista.add(nou);
             cantitats.add(1);
         }
     }
@@ -61,5 +64,15 @@ public class Llista {
             res += llista.get(i).getPreu();
         }
         return res;
+    }
+
+    private static Product containsInstance(ArrayList<Product> l, Product n) {
+        Product ret = null;
+        for (Product p : l) {
+            if (n.getId().equals(p.getId())) {
+                ret = p;
+            }
+        }
+        return ret;
     }
 }

@@ -420,10 +420,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         FileWriter fw = new FileWriter(filename);
 
                         ArrayList<Product> productes = Llista.getInstance().getAllProducts();
+                        ArrayList<Integer> cantitats = Llista.getInstance().getAllCants();
                         String res = uf.getEmail(HomeActivity.this);
                         for (int i = 0; i < productes.size(); ++i){
-                            res += ",";
-                            res += productes.get(i).getId().toString();
+                            for (int j = 0; j < cantitats.get(i); ++j){
+                                res += ",";
+                                res += productes.get(i).getId().toString();
+                            }
                         }
                         fw.append(res);
                         fw.append('\n');

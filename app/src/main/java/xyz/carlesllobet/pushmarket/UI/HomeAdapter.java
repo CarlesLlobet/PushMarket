@@ -3,7 +3,6 @@ package xyz.carlesllobet.pushmarket.UI;
 /**
  * Created by CarlesLlobet on 01/02/2016.
  */
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import xyz.carlesllobet.pushmarket.DB.UserFunctions;
 import xyz.carlesllobet.pushmarket.Domain.Llista;
 import xyz.carlesllobet.pushmarket.Domain.Product;
 import xyz.carlesllobet.pushmarket.R;
