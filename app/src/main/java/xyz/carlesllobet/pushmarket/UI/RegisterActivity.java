@@ -1,9 +1,11 @@
 package xyz.carlesllobet.pushmarket.UI;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -42,12 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     // JSON Response node names
     private static String KEY_SUCCESS = "success";
-    private static String KEY_NAME = "nom";
-    private static String KEY_LAST_NAME = "cognoms";
-    private static String KEY_EMAIL = "email";
-    private static String KEY_EDAD = "data_naix";
-    private static String KEY_COUNTRY = "pais";
-    private static String KEY_SEX = "sexe";
 
     private String nombre;
     private String apellido;
@@ -136,7 +132,6 @@ public class RegisterActivity extends AppCompatActivity {
                         registerErrorMsg.setText("Registrat correctament");
 
                         showProgress(false);
-
                     }else{
                         // Error in login
                         clickable = true;

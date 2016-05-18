@@ -4,7 +4,7 @@
     <string name="action_settings">Preferències</string>
     <string name="btnAddUser">Afegir usuari</string>
     <string name="btnChange">Canviar</string>
-    <string name="btnChangePasswd">Canviar contrasenya</string>
+    <string name="btnChangePasswd">Editar</string>
     <string name="btnEnter">Entrar</string>
     <string name="btnLogout">Tancar sessió</string>
     <string name="btnRegister">Afegir </string>
@@ -56,4 +56,5 @@
     <string name="female">Femení</string>
     <string name="error3">Dades incorrectes. Prova amb un altre correu</string>
     <string name="serverFail">El servidor no està disponible en aquests moments</string>
+    <string name="btnModify">Aplicar</string>
 </resources>

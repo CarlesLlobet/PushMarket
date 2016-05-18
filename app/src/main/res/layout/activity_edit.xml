@@ -47,20 +47,6 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:textColor="@android:color/white" />
-
-        <!--  Address Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:textColor="@android:color/white" />
-        <!--  User TextField -->
-        <EditText
-            android:id="@+id/registerEmail"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:textColor="@android:color/white" />
          
         <!--  Password Label -->
         <TextView
@@ -73,7 +59,7 @@
             android:id="@+id/registerPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textVisiblePassword"
+            android:inputType="textPassword"
             android:textColor="@android:color/white" />
          
         <!--  Age Label -->
@@ -153,7 +139,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:text="@string/btnRegister" />
+            android:text="@string/btnModify" />
 
 
     </LinearLayout>

@@ -33,6 +33,7 @@ public class UserFunctions {
     private static String register_tag = "register";
     private static String products_tag = "products";
     private static String password_tag = "password";
+    private static String modify_tag = "modifyUser";
 
     private SharedPreferences preferences;
 
@@ -74,24 +75,28 @@ public class UserFunctions {
         return json;
     }
 
+    public JSONObject modifyUser(String email, String nombre, String cognoms, String edad, String password,
+                                   String sexe, String pais) {
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tag", modify_tag));
+        params.add(new BasicNameValuePair("email", email));
+        params.add(new BasicNameValuePair("nom", nombre));
+        params.add(new BasicNameValuePair("cognoms", cognoms));
+        params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("data_naix", edad));
+        params.add(new BasicNameValuePair("sexe", sexe));
+        params.add(new BasicNameValuePair("pais", pais));
 
+        // getting JSON Object
+        JSONObject json = jsonParser.getJSONFromUrl(webserviceURL, params);
+
+        return json;
+    }
 
     public String getName (Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String res = preferences.getString("name", "");
-        return res;
-    }
-
-    public String getPass (Context context){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String res = preferences.getString("password", "");
-        return res;
-    }
-
-    public String getLang (Context context){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String res = preferences.getString("language", "");
-        Log.d("recuperat", res);
+        String res = preferences.getString("nom", "");
         return res;
     }
 
@@ -109,13 +114,13 @@ public class UserFunctions {
 
     public String getLastName(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String res = preferences.getString("lastName", "");
+        String res = preferences.getString("cognoms", "");
         return res;
     }
 
     public String getAge(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String res = preferences.getString("edad", "");
+        String res = preferences.getString("data_naix", "");
         return res;
     }
 
@@ -131,9 +136,9 @@ public class UserFunctions {
         return res;
     }
 
-    public String getCity(Context context) {
+    public String getLang(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String res = preferences.getString("ciutat", "");
+        String res = preferences.getString("language", "");
         return res;
     }
 
@@ -141,21 +146,14 @@ public class UserFunctions {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("language", lang);
-        Log.d("guardat", lang);
+        editor.commit();
     }
 
-    public void setPass (Context context, String password){
+    public void setPassword (Context context, String password){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("password", password);
-
-        //SET PASSWORD TO WEBSERVICE DB
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("tag", password_tag));
-        params.add(new BasicNameValuePair("password", password));
-
-        // getting JSON Object
-        jsonParser.getJSONFromUrl(webserviceURL, params);
+        editor.commit();
     }
 
     /**

@@ -98,7 +98,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         if (clickable) {
             switch (v.getId()) {
                 case R.id.btnChangePassword:
-                    startActivity(new Intent(getApplicationContext(), PasswordActivity.class));
+                    startActivity(new Intent(getApplicationContext(), EditActivity.class));
                     break;
                 case R.id.btnLogout:
                     UserFunctions userFunctions = new UserFunctions();

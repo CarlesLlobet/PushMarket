@@ -72,6 +72,11 @@
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".UI.EditActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
         <meta-data
             android:name="android.nfc.action.TECH_DISCOVERED"
             android:resource="@xml/nfc_tech_filter" />
