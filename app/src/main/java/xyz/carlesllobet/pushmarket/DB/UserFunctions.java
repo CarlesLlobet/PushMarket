@@ -32,10 +32,7 @@ public class UserFunctions {
     private static String login_tag = "login";
     private static String register_tag = "register";
     private static String products_tag = "products";
-    private static String password_tag = "password";
     private static String modify_tag = "modifyUser";
-
-    private SharedPreferences preferences;
 
     // constructor
     public UserFunctions() {
@@ -202,12 +199,6 @@ public class UserFunctions {
         DatabaseHandler db = new DatabaseHandler(context);
         Product product = db.getProduct(id);
         return product;
-    }
-
-    public String getProductName(Context context, Integer id) {
-        DatabaseHandler db = new DatabaseHandler(context);
-        String res = db.getProductName(id);
-        return res;
     }
 
     public boolean addProduct(Context context, Long id, String nom, String descripcio, Double preu, Integer sector, Uri foto){

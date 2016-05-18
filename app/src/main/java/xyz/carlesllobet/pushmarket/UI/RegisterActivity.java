@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         setTitle(R.string.tituloRegister);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {

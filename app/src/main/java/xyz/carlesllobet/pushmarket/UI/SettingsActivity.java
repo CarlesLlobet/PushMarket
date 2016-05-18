@@ -3,10 +3,13 @@ package xyz.carlesllobet.pushmarket.UI;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -43,6 +46,12 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
     private MenuItem language;
 
+    private FrameLayout card;
+    private Button modify;
+    private TextView error;
+    private Boolean clickable2;
+    private EditText pass;
+
     private String lang;
 
     @Override
@@ -50,6 +59,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
 
         clickable = true;
+        clickable2 = false;
 
         userFunctions = new UserFunctions();
 
@@ -63,6 +73,11 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         edad = (TextView) findViewById(R.id.edad);
         pais = (TextView) findViewById(R.id.pais);
 
+        card = (FrameLayout) findViewById(R.id.cardLogin);
+        error = (TextView) findViewById(R.id.textView12);
+        pass = (EditText) findViewById(R.id.editText);
+        modify = (Button) findViewById(R.id.btnRetry2);
+        modify.setOnClickListener(this);
 
         name = userFunctions.getName(getApplicationContext());
         lastName = userFunctions.getLastName(getApplicationContext());
@@ -71,10 +86,10 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         country = userFunctions.getCountry(getApplicationContext());
         sex = userFunctions.getSex(getApplicationContext());
 
-        if (sex.equals("Male")) {
+        if (sex.equals("Masculino")) {
             sexo = (RadioButton) findViewById(R.id.radioMale);
             sexo.setChecked(true);
-        } else if (sex.equals("Female")) {
+        } else if (sex.equals("Femenino")) {
             sexo = (RadioButton) findViewById(R.id.radioFemale);
             sexo.setChecked(true);
         }
@@ -98,7 +113,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         if (clickable) {
             switch (v.getId()) {
                 case R.id.btnChangePassword:
-                    startActivity(new Intent(getApplicationContext(), EditActivity.class));
+                    card.setVisibility(View.VISIBLE);
+                    clickable2 = true;
                     break;
                 case R.id.btnLogout:
                     UserFunctions userFunctions = new UserFunctions();
@@ -107,6 +123,21 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     //tancar menu
+                    break;
+                case R.id.btnRetry2:
+                    if (clickable2){
+                        userFunctions = new UserFunctions();
+                        if (pass.getText().toString().equals(userFunctions.getPassword(getApplicationContext()))){
+                            error.setText("");
+                            modify.setText(R.string.btnEnter);
+                            clickable2 = false;
+                            startActivity(new Intent(getApplicationContext(), EditActivity.class));
+                        } else {
+                            error.setText(R.string.notifPass);
+                            modify.setText(R.string.btnRetry);
+                        }
+
+                    }
                     break;
             }
         }
@@ -184,9 +215,16 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        if (clickable2){
+            card.setVisibility(View.GONE);
+            error.setText("");
+            modify.setText(R.string.btnEnter);
+            clickable2 = false;
+        } else {
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
     }
 
 }
